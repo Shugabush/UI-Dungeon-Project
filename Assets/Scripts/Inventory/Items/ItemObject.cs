@@ -10,4 +10,12 @@ public class ItemObject : ScriptableObject
 
     [field: SerializeField, Range(0, 1)]
     public float DropChance { get; private set; } = 0.7f;
+
+    /// <summary>
+    /// Apply any effects from this item (override with other behaviors inheriting ItemObject)
+    /// </summary>
+    public virtual void ApplyEffects()
+    {
+
+    }
 }
