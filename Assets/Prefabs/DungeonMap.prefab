@@ -197,8 +197,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8628875887993891434}
   m_HandleRect: {fileID: 8628875887993891435}
   m_Direction: 2
-  m_Value: 0.00000006103639
-  m_Size: 0.3723991
+  m_Value: -0.00000012207278
+  m_Size: 0.36178568
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -328,6 +328,7 @@ MonoBehaviour:
   - {fileID: 6779868429415497958}
   - {fileID: 5980045562186411685}
   scrollBar: {fileID: 8628875888221055052}
+  lineMat: {fileID: 2100000, guid: a203538a28bed5941900f76394bf324c, type: 2}
 --- !u!1 &8628875888627678823
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +775,7 @@ PrefabInstance:
     - target: {fileID: 2571997272631263735, guid: 5a2145415adfc2843b1fd3f708183d2d,
         type: 3}
       propertyPath: unlocked
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2571997272631263735, guid: 5a2145415adfc2843b1fd3f708183d2d,
         type: 3}

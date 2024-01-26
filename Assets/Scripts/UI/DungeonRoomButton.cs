@@ -24,7 +24,7 @@ public class DungeonRoomButton : Button
         // Dungeon complete requirement cannot be more than the number of dungeon dependencies
         minDungeonCompleteRequirement = Mathf.Min(minDungeonCompleteRequirement, dungeonRoomDependencies.Count);
 
-        unlocked = false;
+        unlocked = dungeonRoomDependencies.Count == 0 || minDungeonCompleteRequirement == 0;
         int dungeonRoomsCompleted = 0;
         foreach (var dungeonRoom in dungeonRoomDependencies)
         {
