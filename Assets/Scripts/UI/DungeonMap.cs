@@ -34,7 +34,11 @@ public class DungeonMap : MonoBehaviour
             line.SetPosition(0, parent.TransformPoint(point1));
             line.SetPosition(1, parent.TransformPoint(point2));
 
-            line.enabled = from.unlocked && to.unlocked;
+            if (!from.unlocked || !to.unlocked)
+            {
+                // Gray out the line
+                line.material.color = new Color(0.75f, 0.75f, 0.75f, 0.25f);
+            }
         }
     }
 
