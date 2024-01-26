@@ -27,7 +27,6 @@ public class MovableAnimation : MonoBehaviour
         moving = true;
         while (!moveTimer.OutOfTime && moving)
         {
-            Debug.Log("moving...");
             moveTimer.Update(Time.deltaTime);
             transform.position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
             yield return null;
@@ -44,7 +43,6 @@ public class MovableAnimation : MonoBehaviour
         moving = false;
         while (moveTimer.TimeElapsed > 0 && !moving)
         {
-            Debug.Log("unmoving...");
             // Update timer in opposite direction
             moveTimer.Update(-Time.deltaTime);
             transform.position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);

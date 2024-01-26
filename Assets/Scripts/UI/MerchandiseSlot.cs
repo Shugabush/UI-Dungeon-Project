@@ -1,21 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class MerchandiseSlot : MonoBehaviour
+public class MerchandiseSlot : Button
 {
-    [field: SerializeField]
-    public ItemObject Item { get; private set; }
+    [SerializeField] ItemObject item;
+    public ItemObject Item => item;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Image icon;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Awake()
     {
-        
+        base.Awake();
+
+        if (item != null)
+        {
+            icon.sprite = item.Sprite;
+        }
     }
 }
