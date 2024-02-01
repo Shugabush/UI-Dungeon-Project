@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : Button
+public class InventorySlot : MonoBehaviour
 {
-    public ItemObject occupiedItem;
-    public int count = 0;
+    [SerializeField] Button button;
+
+    ItemObject occupiedItem;
+    int count = 0;
+
+    public ItemObject OccupiedItem => occupiedItem;
 
     public bool Empty => count == 0;
 

@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[AddComponentMenu("UI/DungeonRoomButton", 30)]
-public class DungeonRoomButton : Button
+public class DungeonRoom : MonoBehaviour
 {
+    [SerializeField] Button button;
+
     // Dungeon rooms that will be unlocked after this one is completed
-    public List<DungeonRoomButton> nextDungeonRooms = new List<DungeonRoomButton>();
-    public List<DungeonRoomButton> dungeonRoomDependencies = new List<DungeonRoomButton>();
+    public List<DungeonRoom> nextDungeonRooms = new List<DungeonRoom>();
+    public List<DungeonRoom> dungeonRoomDependencies = new List<DungeonRoom>();
 
     // How many dungeons from dungeon dependencies do we need to complete before this one is unlocked?
     public int minDungeonCompleteRequirement = 1;
@@ -17,10 +17,8 @@ public class DungeonRoomButton : Button
     public bool unlocked = false;
     public bool completed = false;
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
-
         // Dungeon complete requirement cannot be more than the number of dungeon dependencies
         minDungeonCompleteRequirement = Mathf.Min(minDungeonCompleteRequirement, dungeonRoomDependencies.Count);
 
@@ -39,7 +37,7 @@ public class DungeonRoomButton : Button
             }
         }
 
-        interactable = unlocked;
+        button.interactable = unlocked;
     }
 
     void Update()
@@ -47,10 +45,8 @@ public class DungeonRoomButton : Button
         
     }
 
-    protected override void OnValidate()
+    void OnValidate()
     {
-        base.OnValidate();
-
         bool anythingModified = false;
 
         // Make sure any next dungeon rooms have this dungeon room in their dependencies

@@ -11,13 +11,13 @@ public class DungeonMap : MonoBehaviour
 
         public RectTransform parent;
 
-        DungeonRoomButton from;
-        DungeonRoomButton to;
+        DungeonRoom from;
+        DungeonRoom to;
 
         public RectTransform primaryRt;
         public RectTransform secondaryRt;
 
-        public RoomLine(LineRenderer line, RectTransform parent, DungeonRoomButton from, DungeonRoomButton to)
+        public RoomLine(LineRenderer line, RectTransform parent, DungeonRoom from, DungeonRoom to)
         {
             this.line = line;
             this.parent = parent;
@@ -43,7 +43,7 @@ public class DungeonMap : MonoBehaviour
     }
 
     // Assign in the inspector
-    [SerializeField] DungeonRoomButton[] rooms = new DungeonRoomButton[0];
+    [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
     [SerializeField] Scrollbar scrollBar;
 
     // Lines that will be connecting each of the rooms to each other

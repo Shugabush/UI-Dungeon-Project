@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5948609796958864697}
   - component: {fileID: 2709071645940325917}
   - component: {fileID: 3471852242283284968}
+  - component: {fileID: 3146094597939688749}
   - component: {fileID: -4222678868541072831}
   m_Layer: 5
   m_Name: MerchandiseSlot
@@ -78,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-4222678868541072831
+--- !u!114 &3146094597939688749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7269593193835385611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b92214a98c977bb44b56a8a306206c39, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -122,8 +123,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  item: {fileID: 0}
+--- !u!114 &-4222678868541072831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7269593193835385611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92214a98c977bb44b56a8a306206c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <button>k__BackingField: {fileID: 3146094597939688749}
   icon: {fileID: 1176386135185193739}
+  item: {fileID: 0}
 --- !u!1 &8727771014171508532
 GameObject:
   m_ObjectHideFlags: 0

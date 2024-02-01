@@ -14,7 +14,7 @@ public class StoreScreen : MonoBehaviour
     {
         foreach (var slot in merchandiseSlots)
         {
-            slot.onClick.AddListener(() => selectedItemPanel.Toggle(slot.Item));
+            slot.button.onClick.AddListener(() => selectedItemPanel.Toggle(slot.Item));
         }
     }
 

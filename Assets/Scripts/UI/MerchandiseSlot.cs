@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MerchandiseSlot : Button
+public class MerchandiseSlot : MonoBehaviour
 {
-    [SerializeField] ItemObject item;
-    public ItemObject Item => item;
-
+    // Assign these in the inspector
+    [field: SerializeField] 
+    public Button button { get; private set; }
     [SerializeField] Image icon;
 
-    protected override void Awake()
-    {
-        base.Awake();
+    [SerializeField] ItemObject item;
 
+    public ItemObject Item => item;
+
+    void Start()
+    {
         if (item != null)
         {
             icon.sprite = item.Sprite;

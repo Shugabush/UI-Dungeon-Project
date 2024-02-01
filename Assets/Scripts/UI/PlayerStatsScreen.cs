@@ -41,7 +41,7 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         foreach (var slot in otherSlots)
         {
-            if (slot.occupiedItem == targetItem)
+            if (slot.OccupiedItem == targetItem)
             {
                 return slot;
             }
