@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectedItemPanel : MonoBehaviour
 {
-    public bool IsOpen => selectedItem != null;
+    public bool IsOpen { get; private set; }
 
     ItemObject selectedItem = null;
 
@@ -28,7 +28,7 @@ public class SelectedItemPanel : MonoBehaviour
             if (selectedItem != null)
             {
                 nameText.text = selectedItem.name;
-                descriptionText.text = selectedItem.Description;
+                descriptionText.text = selectedItem.GetDescription();
                 priceText.text = selectedItem.GoldValue.ToString();
             }
         }
@@ -47,6 +47,16 @@ public class SelectedItemPanel : MonoBehaviour
         StopAllCoroutines();
         if (IsOpen)
         {
+            if (SelectedItem != item)
+            {
+                // Just switch the item out, don't close
+                SelectedItem = item;
+                // If the panel was in a state of closing
+                // before we stopped all coroutines,
+                // we need to make sure it's open
+                StartCoroutine(Open(item));
+                return;
+            }
             StartCoroutine(Close());
         }
         else
@@ -57,7 +67,8 @@ public class SelectedItemPanel : MonoBehaviour
 
     void Purchase()
     {
-
+        StorageScreen.Inventory.AddItem(selectedItem);
+        GameManager.Gold -= selectedItem.GoldValue;
     }
 
     IEnumerator Open(ItemObject item)
@@ -67,9 +78,10 @@ public class SelectedItemPanel : MonoBehaviour
 
         purchaseButton.interactable = GameManager.Gold >= item.GoldValue;
 
-        descriptionText.text = item.Description;
+        descriptionText.text = item.GetDescription();
         priceText.text = item.GoldValue.ToString() + " Gold";
         yield return movableAnimation.Move();
+        IsOpen = true;
     }
 
     IEnumerator Close()
@@ -77,5 +89,6 @@ public class SelectedItemPanel : MonoBehaviour
         StopCoroutine(Open(selectedItem));
         yield return movableAnimation.Unmove();
         SelectedItem = null;
+        IsOpen = false;
     }
 }

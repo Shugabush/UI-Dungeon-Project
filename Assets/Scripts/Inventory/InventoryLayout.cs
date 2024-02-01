@@ -16,4 +16,38 @@ public class InventoryLayout : MonoBehaviour
     {
         
     }
+
+    public InventorySlot GetNextEmptySlot()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.OccupiedItem == null)
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
+
+    public InventorySlot GetSlotWithItem(ItemObject targetItem)
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.OccupiedItem == targetItem)
+            {
+                return slot;
+            }
+        }
+        // Just return the next empty slot
+        return GetNextEmptySlot();
+    }
+
+    public void AddItem(ItemObject item)
+    {
+        InventorySlot targetSlot = GetSlotWithItem(item);
+        if (targetSlot != null)
+        {
+            targetSlot.AddItem(item);
+        }
+    }
 }
