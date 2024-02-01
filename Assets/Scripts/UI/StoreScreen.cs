@@ -24,7 +24,7 @@ public class StoreScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             // Check through each slot and make sure none of them are what we selected
             foreach (var slot in merchandiseSlots)
@@ -38,7 +38,7 @@ public class StoreScreen : MonoBehaviour
             // If we didn't select a slot in the slot list,
             // Then make sure the hover panel is closed
             ToggleHoverPanel(null);
-        }
+        }*/
     }
 
     void ToggleHoverPanel(MerchandiseSlot slot)

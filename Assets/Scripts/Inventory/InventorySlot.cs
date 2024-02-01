@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] Button button;
+    [field: SerializeField]
+    public Button button { get; private set; }
+    public RectTransform Rt { get; private set; }
     [SerializeField] Image icon;
     [SerializeField] TMP_Text countText;
 
-    ItemObject occupiedItem;
+    ItemObject item;
     int count = 0;
 
     int Count
@@ -24,7 +26,7 @@ public class InventorySlot : MonoBehaviour
             count = value;
             if (Empty)
             {
-                OccupiedItem = null;
+                Item = null;
                 icon.sprite = null;
                 countText.text = string.Empty;
             }
@@ -35,15 +37,15 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public ItemObject OccupiedItem
+    public ItemObject Item
     {
         get
         {
-            return occupiedItem;
+            return item;
         }
         private set
         {
-            occupiedItem = value;
+            item = value;
             if (value != null)
             {
                 icon.sprite = value.Sprite;
@@ -57,14 +59,19 @@ public class InventorySlot : MonoBehaviour
 
     public bool Empty => Count == 0;
 
+    void Awake()
+    {
+        Rt = transform as RectTransform;
+    }
+
     public void AddItem(ItemObject newItem)
     {
         if (Empty)
         {
-            OccupiedItem = newItem;
+            Item = newItem;
             Count++;
         }
-        else if (OccupiedItem == newItem)
+        else if (Item == newItem)
         {
             Count++;
         }

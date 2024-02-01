@@ -5,10 +5,20 @@ using UnityEngine;
 public class InventoryLayout : MonoBehaviour
 {
     InventorySlot[] slots;
+    [SerializeField] HoverPanel hoverPanel;
+    const float hoverPanelYOffset = 25f;
 
     void Awake()
     {
         slots = GetComponentsInChildren<InventorySlot>();
+
+        if (hoverPanel != null)
+        {
+            foreach (var slot in slots)
+            {
+                slot.button.onClick.AddListener(() => ToggleHoverPanel(slot));
+            }
+        }
     }
 
     // Update is called once per frame
@@ -21,7 +31,7 @@ public class InventoryLayout : MonoBehaviour
     {
         foreach (var slot in slots)
         {
-            if (slot.OccupiedItem == null)
+            if (slot.Item == null)
             {
                 return slot;
             }
@@ -33,7 +43,7 @@ public class InventoryLayout : MonoBehaviour
     {
         foreach (var slot in slots)
         {
-            if (slot.OccupiedItem == targetItem)
+            if (slot.Item == targetItem)
             {
                 return slot;
             }
@@ -48,6 +58,39 @@ public class InventoryLayout : MonoBehaviour
         if (targetSlot != null)
         {
             targetSlot.AddItem(item);
+        }
+    }
+
+    void ToggleHoverPanel(InventorySlot slot)
+    {
+        if (slot == null || slot.Item == null)
+        {
+            hoverPanel.gameObject.SetActive(false);
+            hoverPanel.SelectedItem = null;
+            return;
+        }
+
+        if (hoverPanel.gameObject.activeSelf)
+        {
+            if (hoverPanel.SelectedItem == slot.Item)
+            {
+                // Close the hover panel
+                hoverPanel.gameObject.SetActive(false);
+                hoverPanel.SelectedItem = null;
+            }
+            else
+            {
+                // Switch hover panel's selected item
+                hoverPanel.SelectedItem = slot.Item;
+                hoverPanel.Rt.position = slot.Rt.position + Vector3.up * hoverPanelYOffset;
+            }
+        }
+        else
+        {
+            // Open hover panel and set its selected item
+            hoverPanel.gameObject.SetActive(true);
+            hoverPanel.Rt.position = slot.Rt.position + Vector3.up * hoverPanelYOffset;
+            hoverPanel.SelectedItem = slot.Item;
         }
     }
 }
