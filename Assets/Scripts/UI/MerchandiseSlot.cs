@@ -13,13 +13,16 @@ public class MerchandiseSlot : MonoBehaviour
 
     [SerializeField] ItemObject item;
 
+    public RectTransform Rt { get; private set; }
+
     public ItemObject Item => item;
 
-    void Start()
+    void Awake()
     {
         if (item != null)
         {
             icon.sprite = item.Sprite;
         }
+        Rt = transform as RectTransform;
     }
 }

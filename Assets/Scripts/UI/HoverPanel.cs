@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectedItemPanel : MonoBehaviour
+public class HoverPanel : MonoBehaviour
 {
     public bool IsOpen { get; private set; }
 
@@ -16,13 +16,15 @@ public class SelectedItemPanel : MonoBehaviour
     [SerializeField] TMP_Text priceText;
     [SerializeField] Button purchaseButton;
 
+    public RectTransform Rt { get; private set; }
+
     public ItemObject SelectedItem
     {
         get
         {
             return selectedItem;
         }
-        private set
+        set
         {
             selectedItem = value;
             if (selectedItem != null)
@@ -34,11 +36,13 @@ public class SelectedItemPanel : MonoBehaviour
         }
     }
 
-    [SerializeField] MovableAnimation movableAnimation;
-
     void Awake()
     {
-        purchaseButton.onClick.AddListener(Purchase);
+        Rt = transform as RectTransform;
+        if (purchaseButton != null)
+        {
+            purchaseButton.onClick.AddListener(Purchase);
+        }
     }
 
     public void Toggle(ItemObject item)
@@ -70,7 +74,10 @@ public class SelectedItemPanel : MonoBehaviour
         StorageScreen.Inventory.AddItem(selectedItem);
         GameManager.Gold -= selectedItem.GoldValue;
 
-        purchaseButton.interactable = GameManager.Gold >= selectedItem.GoldValue;
+        if (purchaseButton != null)
+        {
+            purchaseButton.interactable = GameManager.Gold >= selectedItem.GoldValue;
+        }
     }
 
     IEnumerator Open(ItemObject item)
@@ -78,18 +85,21 @@ public class SelectedItemPanel : MonoBehaviour
         StopCoroutine(Close());
         SelectedItem = item;
 
-        purchaseButton.interactable = GameManager.Gold >= item.GoldValue;
+        if (purchaseButton != null)
+        {
+            purchaseButton.interactable = GameManager.Gold >= item.GoldValue;
+        }
 
         descriptionText.text = item.GetDescription();
         priceText.text = item.GoldValue.ToString() + " Gold";
-        yield return movableAnimation.Move();
+        yield return null;
         IsOpen = true;
     }
 
     IEnumerator Close()
     {
         StopCoroutine(Open(selectedItem));
-        yield return movableAnimation.Unmove();
+        yield return null;
         SelectedItem = null;
         IsOpen = false;
     }
