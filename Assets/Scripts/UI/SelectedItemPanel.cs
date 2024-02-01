@@ -14,6 +14,7 @@ public class SelectedItemPanel : MonoBehaviour
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] TMP_Text priceText;
+    [SerializeField] Button purchaseButton;
 
     public ItemObject SelectedItem
     {
@@ -35,8 +36,14 @@ public class SelectedItemPanel : MonoBehaviour
 
     [SerializeField] MovableAnimation movableAnimation;
 
+    void Awake()
+    {
+        purchaseButton.onClick.AddListener(Purchase);
+    }
+
     public void Toggle(ItemObject item)
     {
+        if (item == null) return;
         StopAllCoroutines();
         if (IsOpen)
         {
@@ -48,10 +55,20 @@ public class SelectedItemPanel : MonoBehaviour
         }
     }
 
+    void Purchase()
+    {
+
+    }
+
     IEnumerator Open(ItemObject item)
     {
         StopCoroutine(Close());
         SelectedItem = item;
+
+        purchaseButton.interactable = GameManager.Gold >= item.GoldValue;
+
+        descriptionText.text = item.Description;
+        priceText.text = item.GoldValue.ToString() + " Gold";
         yield return movableAnimation.Move();
     }
 

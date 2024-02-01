@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MovableAnimation : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MovableAnimation : MonoBehaviour
     public float duration = 5f;
 
     bool moving;
+    int direction;
 
     [SerializeField] float gizmoSphereRadius = 5f;
 
@@ -18,39 +20,53 @@ public class MovableAnimation : MonoBehaviour
     void Awake()
     {
         moveTimer = new Timer(duration);
-        startPos = transform.position;
+        startPos = transform.localPosition;
+    }
+
+    public void StartMoveOrUnmove()
+    {
+        if (direction == 1)
+        {
+            StartCoroutine(Unmove());
+        }
+        else
+        {
+            StartCoroutine(Move());
+        }
     }
 
     public IEnumerator Move()
     {
         StopCoroutine(Unmove());
+        direction = 1;
         moving = true;
         while (!moveTimer.OutOfTime && moving)
         {
             moveTimer.Update(Time.deltaTime);
-            transform.position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
+            transform.localPosition = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
             yield return null;
         }
         if (moving)
         {
-            transform.position = startPos + positionOffset;
+            transform.localPosition = startPos + positionOffset;
         }
     }
 
     public IEnumerator Unmove()
     {
         StopCoroutine(Move());
+        direction = -1;
         moving = false;
         while (moveTimer.TimeElapsed > 0 && !moving)
         {
             // Update timer in opposite direction
             moveTimer.Update(-Time.deltaTime);
-            transform.position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
+            transform.localPosition = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
             yield return null;
         }
         if (!moving)
         {
-            transform.position = startPos;
+            transform.localPosition = startPos;
         }
     }
 
