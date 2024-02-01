@@ -6,6 +6,9 @@ using UnityEngine;
 public class WeaponItem : ItemObject
 {
     [field: SerializeField]
+    public Sprite SpriteForPlayer { get; private set; }
+
+    [field: SerializeField]
     public float Strength { get; private set; } = 0.1f;
 
     public override string GetDescription()

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class PlayerStatsScreen : MonoBehaviour
 {
     // Assign these in the inspector
-    [SerializeField] InventorySlot weaponSlot;
-    [SerializeField] InventorySlot armorSlot;
-    [SerializeField] InventorySlot[] otherSlots = new InventorySlot[0];
+    [SerializeField] Image armorIcon;
+    [SerializeField] Image weaponIcon;
+    [SerializeField] InventorySlot[] slots = new InventorySlot[0];
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +22,22 @@ public class PlayerStatsScreen : MonoBehaviour
         
     }
 
+    public void SelectWeapon(WeaponItem weapon)
+    {
+        weaponIcon.sprite = weapon.SpriteForPlayer;
+    }
+
+    public void SelectArmor(ArmorItem armor)
+    {
+        armorIcon.sprite = armor.SpriteForPlayer;
+    }
+
     /// <summary>
     /// Get the next empty slot (besides the weapon and armor slot)
     /// </summary>
     public InventorySlot GetNextEmptySlot()
     {
-        foreach (var slot in otherSlots)
+        foreach (var slot in slots)
         {
             if (slot.Empty)
             {
@@ -39,7 +49,7 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public InventorySlot GetSlotWithItem(ItemObject targetItem)
     {
-        foreach (var slot in otherSlots)
+        foreach (var slot in slots)
         {
             if (slot.OccupiedItem == targetItem)
             {

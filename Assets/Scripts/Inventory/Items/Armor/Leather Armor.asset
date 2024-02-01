@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b49e6380d965474ba699e951acd56ce, type: 3}
   m_Name: Leather Armor
   m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 0}
   <GoldValue>k__BackingField: 25
+  description: 
   <DropChance>k__BackingField: 0.03
+  <SpriteForPlayer>k__BackingField: {fileID: 21300000, guid: 4ffeca82e83aa5e4a87be018745be8c9,
+    type: 3}
   <ArmorValue>k__BackingField: 1
