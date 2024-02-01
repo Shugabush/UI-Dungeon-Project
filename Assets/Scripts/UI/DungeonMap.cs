@@ -44,7 +44,6 @@ public class DungeonMap : MonoBehaviour
 
     // Assign in the inspector
     [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
-    [SerializeField] Scrollbar scrollBar;
 
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> lines;
@@ -54,7 +53,6 @@ public class DungeonMap : MonoBehaviour
 
     void Awake()
     {
-        scrollBar.value = 0;
         lines = new List<RoomLine>();
 
         foreach (var room in rooms)

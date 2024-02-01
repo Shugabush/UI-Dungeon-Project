@@ -37,6 +37,22 @@ public class ActiveCanvasManager : MonoBehaviour
         }
     }
 
+    public static void SetCanvasActiveAdditive(Canvas targetCanvas)
+    {
+        foreach (var canvas in instance.canvases)
+        {
+            if (canvas == targetCanvas)
+            {
+                canvas.enabled = true;
+            }
+        }
+    }
+
+    public static void SetCanvasActiveAdditive(int index)
+    {
+        instance.canvases[index].enabled = true;
+    }
+
     /// <summary>
     /// Disables all canvases
     /// </summary>

@@ -69,6 +69,8 @@ public class SelectedItemPanel : MonoBehaviour
     {
         StorageScreen.Inventory.AddItem(selectedItem);
         GameManager.Gold -= selectedItem.GoldValue;
+
+        purchaseButton.interactable = GameManager.Gold >= selectedItem.GoldValue;
     }
 
     IEnumerator Open(ItemObject item)
