@@ -31,11 +31,11 @@ public class DungeonRoomScreen : MonoBehaviour
         retreatButton.onClick.AddListener(DisableCombatReport);
     }
 
-    public static void EnableCombatReport(int difficultyIndex)
+    public static void EnableCombatReport(DungeonRoom room)
     {
         ActiveCanvasManager.SetCanvasActive(ScreenCanvas);
 
-        DungeonDifficulty difficulty = GetDifficulty(difficultyIndex);
+        DungeonDifficulty difficulty = GetDifficulty(room.DifficultyIndex);
 
         CombatReport.enabled = true;
 
@@ -45,7 +45,19 @@ public class DungeonRoomScreen : MonoBehaviour
         int successPercent = Random.Range(0, 100);
         string successString = successPercent.ToString("00") + "%";
 
-        DifficultyAndSuccessText.text = $"Difficulty: {difficultyIndex + 1}\nSuccess Chance: {successChanceString}";
+        if (successPercent > successChance)
+        {
+            // The player failed
+            successString += "\nFAIL!";
+        }
+        else
+        {
+            // The player succeeded
+            successString += "\nSUCCESS!";
+            room.Completed = true;
+        }
+
+        DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
         RetreatButton.image.enabled = true;
         RetreatButtonText.text = "Retreat to the Surface";

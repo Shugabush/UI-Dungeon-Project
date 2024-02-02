@@ -15,14 +15,14 @@ public class StorageScreen : MonoBehaviour
         Instance = this;
     }
 
-    public static void Unequip(InventorySlot slot)
+    public static void Unequip(InventorySlot slotToRemoveFrom)
     {
-        InventorySlot targetSlot = Inventory.GetSlotWithItem(slot.Item);
+        InventorySlot targetSlot = Inventory.GetSlotWithItem(slotToRemoveFrom.Item);
         if (targetSlot != null)
         {
-            targetSlot.AddItem(slot.Item);
+            targetSlot.AddItem(slotToRemoveFrom.Item);
         }
 
-        slot.RemoveItem();
+        slotToRemoveFrom.RemoveItem();
     }
 }

@@ -8,6 +8,10 @@ public class DungeonRoom : MonoBehaviour
     [SerializeField] int difficultyIndex = 0;
     [SerializeField] Button button;
 
+    static int currentDifficultyIndex = 0;
+
+    public int DifficultyIndex => difficultyIndex;
+
     // Dungeon rooms that will be unlocked after this one is completed
     public List<DungeonRoom> nextDungeonRooms = new List<DungeonRoom>();
     public List<DungeonRoom> dungeonRoomDependencies = new List<DungeonRoom>();
@@ -15,32 +19,58 @@ public class DungeonRoom : MonoBehaviour
     // How many dungeons from dungeon dependencies do we need to complete before this one is unlocked?
     public int minDungeonCompleteRequirement = 1;
 
-    public bool unlocked = false;
-    public bool completed = false;
+    [SerializeField] bool unlocked = false;
+    [SerializeField] bool completed = false;
+
+    public bool Unlocked
+    {
+        get
+        {
+            return unlocked;
+        }
+    }
+
+    public bool Completed
+    {
+        get
+        {
+            return completed;
+        }
+        set
+        {
+            completed = value;
+            if (value)
+            {
+                currentDifficultyIndex++;
+            }
+            foreach (var room in nextDungeonRooms)
+            {
+                room.CheckForUnlocked();
+            }
+        }
+    }
 
     void Awake()
     {
+        currentDifficultyIndex = 0;
+
         // Dungeon complete requirement cannot be more than the number of dungeon dependencies
         minDungeonCompleteRequirement = Mathf.Min(minDungeonCompleteRequirement, dungeonRoomDependencies.Count);
 
-        unlocked = dungeonRoomDependencies.Count == 0 || minDungeonCompleteRequirement == 0;
-        int dungeonRoomsCompleted = 0;
-        foreach (var dungeonRoom in dungeonRoomDependencies)
-        {
-            if (dungeonRoom.completed)
-            {
-                dungeonRoomsCompleted++;
-                if (dungeonRoomsCompleted >= minDungeonCompleteRequirement)
-                {
-                    unlocked = true;
-                    break;
-                }
-            }
-        }
+        CheckForUnlocked();
 
+        button.onClick.AddListener(() => DungeonRoomScreen.EnableCombatReport(this));
+    }
+
+    void Update()
+    {
+        if (currentDifficultyIndex != difficultyIndex)
+        {
+            // Skip this dungeon
+            unlocked = false;
+        }
         button.interactable = unlocked;
         button.enabled = !completed;
-        button.onClick.AddListener(() => DungeonRoomScreen.EnableCombatReport(difficultyIndex));
     }
 
     void OnValidate()
@@ -94,6 +124,30 @@ public class DungeonRoom : MonoBehaviour
             if (dungeonRoom != null)
             {
                 Gizmos.DrawLine(transform.position, dungeonRoom.transform.position);
+            }
+        }
+    }
+
+    void CheckForUnlocked()
+    {
+        if (dungeonRoomDependencies.Count == 0 || minDungeonCompleteRequirement == 0)
+        {
+            unlocked = true;
+        }
+        else
+        {
+            int dungeonRoomsCompleted = 0;
+            foreach (var dungeonRoom in dungeonRoomDependencies)
+            {
+                if (dungeonRoom.completed)
+                {
+                    dungeonRoomsCompleted++;
+                    if (dungeonRoomsCompleted >= minDungeonCompleteRequirement)
+                    {
+                        unlocked = true;
+                        break;
+                    }
+                }
             }
         }
     }

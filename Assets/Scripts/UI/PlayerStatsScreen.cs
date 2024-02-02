@@ -26,6 +26,12 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static void SelectWeapon(WeaponItem weapon)
     {
+        if (WeaponSlot.Item != null)
+        {
+            // Add the existing weapon item back to the storage
+            StorageScreen.Unequip(WeaponSlot as InventorySlot);
+        }
+
         WeaponIcon.sprite = weapon.SpriteForPlayer;
         WeaponIcon.enabled = true;
         WeaponSlot.Item = weapon;
@@ -33,6 +39,12 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static void SelectArmor(ArmorItem armor)
     {
+        if (ArmorSlot.Item != null)
+        {
+            // Add the existing armor item back to the storage
+            StorageScreen.Unequip(ArmorSlot as InventorySlot);
+        }
+
         ArmorIcon.sprite = armor.SpriteForPlayer;
         ArmorIcon.enabled = true;
         ArmorSlot.Item = armor;

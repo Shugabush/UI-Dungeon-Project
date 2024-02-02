@@ -34,10 +34,15 @@ public class DungeonMap : MonoBehaviour
             line.SetPosition(0, parent.TransformPoint(point1));
             line.SetPosition(1, parent.TransformPoint(point2));
 
-            if (!from.unlocked || !to.unlocked)
+            if (!from.Completed || !to.Unlocked)
             {
                 // Gray out the line
                 line.material.color = new Color(0.75f, 0.75f, 0.75f, 0.25f);
+            }
+            else
+            {
+                // Make the color white
+                line.material.color = Color.white;
             }
         }
     }
@@ -82,7 +87,7 @@ public class DungeonMap : MonoBehaviour
                         newLine.transform.parent = transform;
                         newLine.transform.localPosition = Vector3.zero;
                         newLine.positionCount = 2;
-                        RoomLine roomLine = new RoomLine(newLine, transform as RectTransform, room, dependency);
+                        RoomLine roomLine = new RoomLine(newLine, transform as RectTransform, dependency, room);
 
                         lines.Add(roomLine);
                     }
