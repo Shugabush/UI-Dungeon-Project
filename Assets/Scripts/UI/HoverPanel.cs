@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class HoverPanel : MonoBehaviour
@@ -15,6 +16,7 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] TMP_Text descriptionText;
     [SerializeField] TMP_Text priceText;
     [SerializeField] Button purchaseButton;
+    [SerializeField] Button equipButton;
 
     public RectTransform Rt { get; private set; }
 
@@ -36,12 +38,39 @@ public class HoverPanel : MonoBehaviour
         }
     }
 
+    // If we select any of these selectables,
+    // that will prevent this hover panel from closing
+    [SerializeField] GameObject[] selectablesToKeepThisEnabled = new GameObject[0];
+
+    public GameObject selectedObject;
+
     void Awake()
     {
         Rt = transform as RectTransform;
+
         if (purchaseButton != null)
         {
             purchaseButton.onClick.AddListener(Purchase);
+        }
+        if (equipButton != null)
+        {
+            equipButton.onClick.AddListener(() => Equip(SelectedItem));
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (EventSystem.current.currentSelectedGameObject == null)
+            {
+                gameObject.SetActive(false);
+            }
+            else if (EventSystem.current.currentSelectedGameObject != selectedObject &&
+                !AnyOtherSelectableSelected() && !IsSelected())
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -80,6 +109,11 @@ public class HoverPanel : MonoBehaviour
         }
     }
 
+    void Equip(ItemObject item)
+    {
+
+    }
+
     IEnumerator Open(ItemObject item)
     {
         StopCoroutine(Close());
@@ -102,5 +136,51 @@ public class HoverPanel : MonoBehaviour
         yield return null;
         SelectedItem = null;
         IsOpen = false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Whether or not the hover panel is selected or either of its buttons are selected</returns>
+    public bool IsSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject == gameObject)
+        {
+            return true;
+        }
+
+        if (purchaseButton != null && EventSystem.current.currentSelectedGameObject == purchaseButton.gameObject)
+        {
+            return true;
+        }
+
+        if (equipButton != null && EventSystem.current.currentSelectedGameObject == equipButton.gameObject)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Whether or not any other selectable is selected besides the selected object</returns>
+    bool AnyOtherSelectableSelected()
+    {
+        if (EventSystem.current.currentSelectedGameObject == selectedObject)
+        {
+            return false;
+        }
+
+        foreach (var selectable in selectablesToKeepThisEnabled)
+        {
+            if (EventSystem.current.currentSelectedGameObject == selectable)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

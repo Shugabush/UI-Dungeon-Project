@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryLayout : MonoBehaviour
 {
@@ -25,6 +26,22 @@ public class InventoryLayout : MonoBehaviour
     void Update()
     {
         
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Whether or not the current selected game object is one of the inventory slots</returns>
+    public bool AnySlotSelected()
+    {
+        foreach (var slot in slots)
+        {
+            if (EventSystem.current.currentSelectedGameObject == slot.gameObject)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public InventorySlot GetNextEmptySlot()

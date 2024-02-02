@@ -10,34 +10,32 @@ public class PlayerStatsScreen : MonoBehaviour
     [SerializeField] Image weaponIcon;
     [SerializeField] InventorySlot[] slots = new InventorySlot[0];
 
-    // Start is called before the first frame update
-    void Start()
+    public static Image ArmorIcon => instance.armorIcon;
+    public static Image WeaponIcon => instance.weaponIcon;
+
+    static PlayerStatsScreen instance;
+
+    void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void SelectWeapon(WeaponItem weapon)
     {
-        
+        WeaponIcon.sprite = weapon.SpriteForPlayer;
     }
 
-    public void SelectWeapon(WeaponItem weapon)
+    public static void SelectArmor(ArmorItem armor)
     {
-        weaponIcon.sprite = weapon.SpriteForPlayer;
-    }
-
-    public void SelectArmor(ArmorItem armor)
-    {
-        armorIcon.sprite = armor.SpriteForPlayer;
+        ArmorIcon.sprite = armor.SpriteForPlayer;
     }
 
     /// <summary>
     /// Get the next empty slot (besides the weapon and armor slot)
     /// </summary>
-    public InventorySlot GetNextEmptySlot()
+    public static InventorySlot GetNextEmptySlot()
     {
-        foreach (var slot in slots)
+        foreach (var slot in instance.slots)
         {
             if (slot.Empty)
             {
@@ -47,9 +45,9 @@ public class PlayerStatsScreen : MonoBehaviour
         return null;
     }
 
-    public InventorySlot GetSlotWithItem(ItemObject targetItem)
+    public static InventorySlot GetSlotWithItem(ItemObject targetItem)
     {
-        foreach (var slot in slots)
+        foreach (var slot in instance.slots)
         {
             if (slot.Item == targetItem)
             {
