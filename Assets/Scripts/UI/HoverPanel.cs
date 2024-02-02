@@ -17,6 +17,7 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] TMP_Text priceText;
     [SerializeField] Button purchaseButton;
     [SerializeField] Button equipButton;
+    [SerializeField] Button unequipButton;
 
     CanvasGroup purchaseButtonCanvasGroup;
 
@@ -48,6 +49,7 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] GameObject[] selectablesToKeepThisEnabled = new GameObject[0];
 
     public BaseSlot selectedSlot;
+    BaseSlot lastNonNullSelectedSlot;
 
     MaskableGraphic[] graphics;
 
@@ -66,7 +68,11 @@ public class HoverPanel : MonoBehaviour
         }
         if (equipButton != null)
         {
-            equipButton.onClick.AddListener(() => PlayerStatsScreen.Equip(selectedSlot));
+            equipButton.onClick.AddListener(() => Equip(lastNonNullSelectedSlot as InventorySlot));
+        }
+        if (unequipButton != null)
+        {
+            unequipButton.onClick.AddListener(() => Unequip(lastNonNullSelectedSlot as InventorySlot));
         }
 
         graphics = GetComponents<MaskableGraphic>();
@@ -76,6 +82,10 @@ public class HoverPanel : MonoBehaviour
 
     void Update()
     {
+        if (selectedSlot != null)
+        {
+            lastNonNullSelectedSlot = selectedSlot;
+        }
         if (!justPurchased && Input.GetMouseButtonUp(0))
         {
             if (AnyOtherSelectableSelected() || IsSelected())
@@ -97,9 +107,12 @@ public class HoverPanel : MonoBehaviour
             else if (folder.activeInHierarchy)
             {
                 DisableUI();
-                selectedSlot = null;
-                SelectedItem = null;
             }
+        }
+
+        if (purchaseButton != null && folder.activeInHierarchy && selectedItem != null)
+        {
+            EnableOrDisablePurchaseButton();
         }
     }
 
@@ -123,6 +136,9 @@ public class HoverPanel : MonoBehaviour
         {
             graphic.enabled = false;
         }
+
+        selectedSlot = null;
+        SelectedItem = null;
     }
 
     void Purchase()
@@ -138,11 +154,29 @@ public class HoverPanel : MonoBehaviour
         if (selectedItem.GetType() == typeof(ArmorItem) || selectedItem.GetType() == typeof(WeaponItem))
         {
             // We can only purchase one of each armor item and weapon item
-            DisableUI();
             selectedSlot.button.interactable = false;
+            DisableUI();
         }
 
         StartCoroutine(PurchaseCooldown());
+    }
+
+    void Equip(InventorySlot slot)
+    {
+        PlayerStatsScreen.Equip(slot);
+        if (slot.Item == null)
+        {
+            DisableUI();
+        }
+    }
+
+    void Unequip(InventorySlot slot)
+    {
+        StorageScreen.Unequip(slot);
+        if (slot.Item == null)
+        {
+            DisableUI();
+        }
     }
     
     // Give a one frame cooldown,
@@ -204,6 +238,11 @@ public class HoverPanel : MonoBehaviour
         }
 
         if (equipButton != null && EventSystem.current.currentSelectedGameObject == equipButton.gameObject)
+        {
+            return true;
+        }
+
+        if (unequipButton != null && EventSystem.current.currentSelectedGameObject == unequipButton.gameObject)
         {
             return true;
         }

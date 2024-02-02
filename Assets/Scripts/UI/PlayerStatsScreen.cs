@@ -38,20 +38,28 @@ public class PlayerStatsScreen : MonoBehaviour
         ArmorSlot.Item = armor;
     }
 
-    public static void Equip(BaseSlot item)
+    public static void Equip(InventorySlot slot)
     {
-        if (item.GetType() == typeof(WeaponItem))
+        if (slot == null || slot.Item == null) return;
+
+        if (slot.Item.GetType() == typeof(WeaponItem))
         {
-            SelectWeapon((WeaponItem)item.Item);
-            item.button.interactable = false;
-            return;
+            SelectWeapon((WeaponItem)slot.Item);
         }
-        if (item.GetType() == typeof(ArmorItem))
+        else if (slot.Item.GetType() == typeof(ArmorItem))
         {
-            SelectArmor((ArmorItem)item.Item);
-            return;
+            SelectArmor((ArmorItem)slot.Item);
+        }
+        else
+        {
+            InventorySlot targetSlot = GetSlotWithItem(slot.Item);
+            if (targetSlot != null)
+            {
+                GetSlotWithItem(slot.Item).AddItem(slot.Item);
+            }
         }
 
+        slot.RemoveItem();
     }
 
     /// <summary>
@@ -78,6 +86,6 @@ public class PlayerStatsScreen : MonoBehaviour
                 return slot;
             }
         }
-        return null;
+        return GetNextEmptySlot();
     }
 }

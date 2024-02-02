@@ -15,15 +15,14 @@ public class StorageScreen : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public static void Unequip(InventorySlot slot)
     {
-        
-    }
+        InventorySlot targetSlot = Inventory.GetSlotWithItem(slot.Item);
+        if (targetSlot != null)
+        {
+            targetSlot.AddItem(slot.Item);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        slot.RemoveItem();
     }
 }
