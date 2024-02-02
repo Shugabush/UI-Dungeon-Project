@@ -42,6 +42,7 @@ public class BaseSlot : MonoBehaviour
         if (item != null)
         {
             icon.sprite = item.Sprite;
+            icon.enabled = true;
         }
         Rt = transform as RectTransform;
     }
@@ -51,6 +52,7 @@ public class BaseSlot : MonoBehaviour
         if (item != null)
         {
             icon.sprite = item.Sprite;
+            icon.enabled = true;
         }
         if (Rt == null)
         {
