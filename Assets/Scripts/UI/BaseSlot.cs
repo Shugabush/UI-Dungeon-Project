@@ -27,10 +27,12 @@ public class BaseSlot : MonoBehaviour
             if (value != null)
             {
                 icon.sprite = value.Sprite;
+                icon.enabled = true;
             }
             else
             {
                 icon.sprite = null;
+                icon.enabled = false;
             }
         }
     }

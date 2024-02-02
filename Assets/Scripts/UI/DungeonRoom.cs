@@ -66,8 +66,8 @@ public class DungeonRoom : MonoBehaviour
     {
         if (currentDifficultyIndex != difficultyIndex)
         {
-            // Skip this dungeon
-            unlocked = false;
+            // Skip this dungeon if it wasn't completed
+            unlocked = completed;
         }
         button.interactable = unlocked;
         button.enabled = !completed;

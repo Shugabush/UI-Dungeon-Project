@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(TMP_Text))]
 public class GoldUI : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
@@ -13,7 +12,7 @@ public class GoldUI : MonoBehaviour
     {
         if (text == null)
         {
-            text = GetComponent<TMP_Text>();
+            text = GetComponentInChildren<TMP_Text>();
         }
 
         instances.Add(this);
@@ -23,7 +22,7 @@ public class GoldUI : MonoBehaviour
     {
         foreach (var instance in instances)
         {
-            instance.text.text = gold.ToString() + " Gold";
+            instance.text.text = gold.ToString();
         }
     }
 

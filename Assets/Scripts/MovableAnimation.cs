@@ -15,12 +15,39 @@ public class MovableAnimation : MonoBehaviour
 
     Vector3 startPos;
 
+    Vector3 Position
+    {
+        get
+        {
+            if (rt != null)
+            {
+                return rt.anchoredPosition;
+            }
+            return transform.localPosition;
+        }
+        set
+        {
+            if (rt != null)
+            {
+                rt.anchoredPosition = value;
+            }
+            else
+            {
+                transform.localPosition = value;
+            }
+        }
+    }
+
     Timer moveTimer;
+
+    RectTransform rt;
 
     void Awake()
     {
         moveTimer = new Timer(duration);
-        startPos = transform.localPosition;
+
+        rt = GetComponent<RectTransform>();
+        startPos = Position;
     }
 
     public void StartMoveOrUnmove()
@@ -43,12 +70,12 @@ public class MovableAnimation : MonoBehaviour
         while (!moveTimer.OutOfTime && moving)
         {
             moveTimer.Update(Time.deltaTime);
-            transform.localPosition = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
+            Position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
             yield return null;
         }
         if (moving)
         {
-            transform.localPosition = startPos + positionOffset;
+            Position = startPos + positionOffset;
         }
     }
 
@@ -61,12 +88,12 @@ public class MovableAnimation : MonoBehaviour
         {
             // Update timer in opposite direction
             moveTimer.Update(-Time.deltaTime);
-            transform.localPosition = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
+            Position = startPos + (positionOffset * moveTimer.FractionOfTimeElapsed);
             yield return null;
         }
         if (!moving)
         {
-            transform.localPosition = startPos;
+            Position = startPos;
         }
     }
 

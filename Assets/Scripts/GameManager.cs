@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] int gold = 500;
+    [SerializeField] int health = 10;
+    [SerializeField] int maxHealth = 10;
 
     static GameManager instance;
     public static int Gold
@@ -19,6 +21,18 @@ public class GameManager : MonoBehaviour
             GoldUI.UpdateInstances(value);
         }
     }
+    public static int Health
+    {
+        get
+        {
+            return instance.health;
+        }
+        set
+        {
+            instance.health = value;
+            HealthBar.UpdateHealth(value, instance.maxHealth);
+        }
+    }
 
     void Awake()
     {
@@ -29,6 +43,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GoldUI.UpdateInstances(gold);
+        Health = maxHealth;
     }
 
     // Update is called once per frame
