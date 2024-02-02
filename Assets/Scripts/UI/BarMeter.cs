@@ -9,7 +9,6 @@ public class BarMeter : MonoBehaviour
     // Assign these in the inspector
     [SerializeField] TMP_Text text;
     [SerializeField] int maxValue = 3;
-    [SerializeField] GridLayoutGroup iconParent;
 
     public int MaxValue
     {
@@ -42,7 +41,7 @@ public class BarMeter : MonoBehaviour
                 for (int i = currentIconCount - 1; i < value; i++)
                 {
                     Image newIcon = new GameObject("Icon").AddComponent<Image>();
-                    newIcon.transform.parent = iconParent.transform;
+                    newIcon.transform.parent = transform;
                     newIcon.sprite = iconSprite;
                     icons.Add(newIcon);
                 }
@@ -60,7 +59,7 @@ public class BarMeter : MonoBehaviour
         for (int i = 0; i < maxValue; i++)
         {
             Image newIcon = new GameObject("Icon").AddComponent<Image>();
-            newIcon.transform.parent = iconParent.transform;
+            newIcon.transform.parent = transform;
             newIcon.sprite = iconSprite;
             newIcon.enabled = false;
             icons.Add(newIcon);
