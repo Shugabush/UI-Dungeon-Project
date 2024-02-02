@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class DungeonRoomScreen : MonoBehaviour
 {
-    [SerializeField] Image combatReport;
+    [SerializeField] DungeonDifficulty[] difficulties = new DungeonDifficulty[0];
+
     [SerializeField] Canvas screenCanvas;
+    [SerializeField] Image combatReport;
     [SerializeField] TMP_Text difficultyAndSuccessText;
     [SerializeField] TMP_Text successPercentText;
     [SerializeField] Button retreatButton;
     [SerializeField] TMP_Text retreatButtonText;
 
+    static DungeonDifficulty[] Difficulties => instance.difficulties;
     public static Canvas ScreenCanvas => instance.screenCanvas;
     static Image CombatReport => instance.combatReport;
     static TMP_Text DifficultyAndSuccessText => instance.difficultyAndSuccessText;
@@ -25,20 +28,26 @@ public class DungeonRoomScreen : MonoBehaviour
     void Awake()
     {
         instance = this;
+        retreatButton.onClick.AddListener(DisableCombatReport);
     }
 
-    void Start()
+    public static void EnableCombatReport(int difficultyIndex)
     {
-        DisableCombatReport();
-    }
+        ActiveCanvasManager.SetCanvasActive(ScreenCanvas);
 
-    public static void EnableCombatReport()
-    {
+        DungeonDifficulty difficulty = GetDifficulty(difficultyIndex);
+
         CombatReport.enabled = true;
-        DifficultyAndSuccessText.text = string.Empty;
-        SuccessPercentText.text = string.Empty;
+
+        int successChance = difficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
+        string successChanceString = successChance.ToString("00") + "%";
+
+        int successPercent = Random.Range(0, 100);
+        string successString = successPercent.ToString("00") + "%";
+
+        DifficultyAndSuccessText.text = $"Difficulty: {difficultyIndex + 1}\nSuccess Chance: {successChanceString}";
+        SuccessPercentText.text = successString;
         RetreatButton.image.enabled = true;
-        RetreatButton.interactable = false;
         RetreatButtonText.text = "Retreat to the Surface";
 
         StorageScreen.Instance.gameObject.SetActive(false);
@@ -47,14 +56,20 @@ public class DungeonRoomScreen : MonoBehaviour
 
     public static void DisableCombatReport()
     {
+        ActiveCanvasManager.SetCanvasActive(DungeonMap.MapCanvas);
+
         CombatReport.enabled = false;
         DifficultyAndSuccessText.text = string.Empty;
         SuccessPercentText.text = string.Empty;
         RetreatButton.image.enabled = false;
-        RetreatButton.interactable = false;
         RetreatButtonText.text = string.Empty;
 
         StorageScreen.Instance.gameObject.SetActive(true);
         StoreScreen.Instance.gameObject.SetActive(true);
+    }
+
+    public static DungeonDifficulty GetDifficulty(int index)
+    {
+        return Difficulties[index];
     }
 }

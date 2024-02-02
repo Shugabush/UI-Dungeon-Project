@@ -18,10 +18,9 @@ public class InventorySlot : BaseSlot
         set
         {
             count = value;
-            if (Empty)
+            if (value <= 0)
             {
                 Item = null;
-                icon.sprite = null;
                 countText.text = string.Empty;
             }
             else
@@ -31,15 +30,7 @@ public class InventorySlot : BaseSlot
         }
     }
 
-    public bool Empty => Count == 0;
-
-    public void MoveToOtherSlot(InventorySlot otherSlot)
-    {
-        if (otherSlot == null) return;
-
-        otherSlot.AddItem(Item);
-        RemoveItem();
-    }
+    public bool Empty => Count <= 0;
 
     public void AddItem(ItemObject newItem)
     {
@@ -59,6 +50,19 @@ public class InventorySlot : BaseSlot
         if (!Empty)
         {
             Count--;
+        }
+        else
+        {
+            Count = 0;
+        }
+
+        if (this == PlayerStatsScreen.WeaponSlot)
+        {
+            PlayerStatsScreen.RemoveWeapon();
+        }
+        else if (this == PlayerStatsScreen.ArmorSlot)
+        {
+            PlayerStatsScreen.RemoveArmor();
         }
     }
 }

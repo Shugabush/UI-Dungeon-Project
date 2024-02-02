@@ -153,8 +153,7 @@ public class HoverPanel : MonoBehaviour
 
         if (selectedItem.GetType() == typeof(ArmorItem) || selectedItem.GetType() == typeof(WeaponItem))
         {
-            // We can only purchase one of each armor item and weapon item
-            selectedSlot.button.interactable = false;
+            lastNonNullSelectedSlot.button.interactable = false;
             DisableUI();
         }
 

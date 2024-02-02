@@ -14,8 +14,8 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static Image ArmorIcon => instance.armorIcon;
     public static Image WeaponIcon => instance.weaponIcon;
-    static BaseSlot ArmorSlot => instance.armorSlot;
-    static BaseSlot WeaponSlot => instance.weaponSlot;
+    public static BaseSlot ArmorSlot => instance.armorSlot;
+    public static BaseSlot WeaponSlot => instance.weaponSlot;
 
     static PlayerStatsScreen instance;
 
@@ -36,6 +36,18 @@ public class PlayerStatsScreen : MonoBehaviour
         ArmorIcon.sprite = armor.SpriteForPlayer;
         ArmorIcon.enabled = true;
         ArmorSlot.Item = armor;
+    }
+
+    public static void RemoveWeapon()
+    {
+        WeaponIcon.sprite = null;
+        WeaponIcon.enabled = false;
+    }
+
+    public static void RemoveArmor()
+    {
+        ArmorIcon.sprite = null;
+        ArmorIcon.enabled = false;
     }
 
     public static void Equip(InventorySlot slot)
@@ -87,5 +99,15 @@ public class PlayerStatsScreen : MonoBehaviour
             }
         }
         return GetNextEmptySlot();
+    }
+
+    public static int GetAdditionalFightSuccess()
+    {
+        if (ArmorSlot.Item == null)
+        {
+            return 0;
+        }
+
+        return (int)((ArmorSlot.Item as WeaponItem).Strength * 100);
     }
 }
