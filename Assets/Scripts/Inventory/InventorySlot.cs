@@ -33,6 +33,14 @@ public class InventorySlot : BaseSlot
 
     public bool Empty => Count == 0;
 
+    public void MoveToOtherSlot(InventorySlot otherSlot)
+    {
+        if (otherSlot == null) return;
+
+        otherSlot.AddItem(Item);
+        RemoveItem();
+    }
+
     public void AddItem(ItemObject newItem)
     {
         if (Empty)

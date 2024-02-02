@@ -6,13 +6,13 @@ public class StorageScreen : MonoBehaviour
 {
     [SerializeField] InventoryLayout inventory;
 
-    static StorageScreen instance;
+    public static StorageScreen Instance { get; private set; }
 
-    public static InventoryLayout Inventory => instance.inventory;
+    public static InventoryLayout Inventory => Instance.inventory;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public static void Unequip(InventorySlot slot)

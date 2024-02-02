@@ -48,17 +48,24 @@ public class DungeonMap : MonoBehaviour
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> lines;
     [SerializeField] Material lineMat;
+    [SerializeField] Canvas canvas;
 
     const float lineWidth = 0.25f;
 
     void Awake()
     {
+        if (canvas == null)
+        {
+            canvas = GetComponent<Canvas>();
+        }
+
         lines = new List<RoomLine>();
 
         foreach (var room in rooms)
         {
             if (room != null)
             {
+                // Set up line renderers
                 foreach (var dependency in room.dungeonRoomDependencies)
                 {
                     if (dependency != null)
@@ -83,7 +90,15 @@ public class DungeonMap : MonoBehaviour
     {
         foreach (var line in lines)
         {
-            line.Update();
+            if (canvas.enabled)
+            {
+                line.line.enabled = true;
+                line.Update();
+            }
+            else
+            {
+                line.line.enabled = false;
+            }
         }
     }
 }

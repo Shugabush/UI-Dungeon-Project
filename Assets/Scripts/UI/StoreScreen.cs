@@ -7,4 +7,11 @@ public class StoreScreen : MonoBehaviour
     [SerializeField] HoverPanel hoverPanel;
 
     [SerializeField] BaseSlot[] merchandiseSlots = new BaseSlot[0];
+
+    public static StoreScreen Instance { get; private set; }
+
+    void Awake()
+    {
+        Instance = this;
+    }
 }

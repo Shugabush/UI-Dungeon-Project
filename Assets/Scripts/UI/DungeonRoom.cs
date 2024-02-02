@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DungeonRoom : MonoBehaviour
 {
+    [SerializeField] int difficulty = 1;
     [SerializeField] Button button;
 
     // Dungeon rooms that will be unlocked after this one is completed
@@ -38,6 +39,7 @@ public class DungeonRoom : MonoBehaviour
         }
 
         button.interactable = unlocked;
+        button.onClick.AddListener(EnterRoom);
     }
 
     void Update()
@@ -98,5 +100,11 @@ public class DungeonRoom : MonoBehaviour
                 Gizmos.DrawLine(transform.position, dungeonRoom.transform.position);
             }
         }
+    }
+
+    void EnterRoom()
+    {
+        ActiveCanvasManager.SetCanvasActive(DungeonRoomScreen.ScreenCanvas);
+        DungeonRoomScreen.EnableCombatReport();
     }
 }
