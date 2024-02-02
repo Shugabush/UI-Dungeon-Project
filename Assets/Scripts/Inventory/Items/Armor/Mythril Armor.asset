@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b49e6380d965474ba699e951acd56ce, type: 3}
   m_Name: Mythril Armor
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: dd70c5b1c8c4eb14cbbbd74a3bc22c86,
+    type: 3}
   <GoldValue>k__BackingField: 700
   description: 
   <DropChance>k__BackingField: 0.0001

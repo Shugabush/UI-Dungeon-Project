@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <button>k__BackingField: {fileID: 230680084039472819}
   icon: {fileID: 7095610042801280099}
+  item: {fileID: 0}
   countText: {fileID: 6269987494784508427}
 --- !u!1 &7784811329855904154
 GameObject:

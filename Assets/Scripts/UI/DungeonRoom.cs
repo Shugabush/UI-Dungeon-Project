@@ -39,6 +39,7 @@ public class DungeonRoom : MonoBehaviour
         }
 
         button.interactable = unlocked;
+        button.enabled = !completed;
         button.onClick.AddListener(() => DungeonRoomScreen.EnableCombatReport(difficultyIndex));
     }
 

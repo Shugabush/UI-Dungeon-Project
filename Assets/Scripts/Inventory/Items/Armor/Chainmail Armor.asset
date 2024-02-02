@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b49e6380d965474ba699e951acd56ce, type: 3}
   m_Name: Chainmail Armor
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 0da2c2b13de0dd9459bc3466bbcc11ba,
+    type: 3}
   <GoldValue>k__BackingField: 100
   description: 
   <DropChance>k__BackingField: 0.007

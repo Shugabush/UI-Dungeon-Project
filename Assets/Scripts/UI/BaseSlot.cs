@@ -43,4 +43,16 @@ public class BaseSlot : MonoBehaviour
         }
         Rt = transform as RectTransform;
     }
+
+    protected virtual void OnValidate()
+    {
+        if (item != null)
+        {
+            icon.sprite = item.Sprite;
+        }
+        if (Rt == null)
+        {
+            Rt = transform as RectTransform;
+        }
+    }
 }

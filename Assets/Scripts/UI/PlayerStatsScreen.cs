@@ -103,11 +103,11 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static int GetAdditionalFightSuccess()
     {
-        if (ArmorSlot.Item == null)
+        if (WeaponSlot.Item == null)
         {
             return 0;
         }
 
-        return (int)((ArmorSlot.Item as WeaponItem).Strength * 100);
+        return (int)((WeaponSlot.Item as WeaponItem).Strength * 100);
     }
 }
