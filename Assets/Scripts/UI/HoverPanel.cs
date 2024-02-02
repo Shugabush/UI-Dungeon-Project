@@ -80,11 +80,18 @@ public class HoverPanel : MonoBehaviour
         {
             if (AnyOtherSelectableSelected() || IsSelected())
             {
-                EnableUI();
                 selectedSlot = EventSystem.current.currentSelectedGameObject.GetComponent<BaseSlot>();
                 if (selectedSlot != null)
                 {
                     SelectedItem = selectedSlot.Item;
+                }
+                if (selectedItem != null)
+                {
+                    EnableUI();
+                }
+                else
+                {
+                    DisableUI();
                 }
             }
             else if (folder.activeInHierarchy)
@@ -98,6 +105,10 @@ public class HoverPanel : MonoBehaviour
 
     void EnableUI()
     {
+        if (selectedSlot != null)
+        {
+            Rt.position = selectedSlot.Rt.position + Vector3.up * yOffset;
+        }
         folder.SetActive(true);
         foreach (var graphic in graphics)
         {
