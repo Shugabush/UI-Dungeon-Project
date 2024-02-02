@@ -20,12 +20,4 @@ public class ItemObject : ScriptableObject
     {
         return description;
     }
-
-    /// <summary>
-    /// Apply any effects from this item (override with other behaviors inheriting ItemObject)
-    /// </summary>
-    public virtual void ApplyEffects()
-    {
-
-    }
 }

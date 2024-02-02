@@ -35,6 +35,7 @@ public class PlayerStatsScreen : MonoBehaviour
         WeaponIcon.sprite = weapon.SpriteForPlayer;
         WeaponIcon.enabled = true;
         WeaponSlot.Item = weapon;
+        GameManager.ExtraFightSuccess = ((WeaponItem)WeaponSlot.Item).Strength;
     }
 
     public static void SelectArmor(ArmorItem armor)
@@ -48,18 +49,21 @@ public class PlayerStatsScreen : MonoBehaviour
         ArmorIcon.sprite = armor.SpriteForPlayer;
         ArmorIcon.enabled = true;
         ArmorSlot.Item = armor;
+        GameManager.Armor = ((ArmorItem)ArmorSlot.Item).ArmorValue;
     }
 
     public static void RemoveWeapon()
     {
         WeaponIcon.sprite = null;
         WeaponIcon.enabled = false;
+        GameManager.ExtraFightSuccess = 0;
     }
 
     public static void RemoveArmor()
     {
         ArmorIcon.sprite = null;
         ArmorIcon.enabled = false;
+        GameManager.Armor = 0;
     }
 
     public static void Equip(InventorySlot slot)

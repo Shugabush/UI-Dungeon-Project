@@ -10,4 +10,9 @@ public class ArmorItem : ItemObject
 
     [field: SerializeField]
     public int ArmorValue { get; private set; } = 1;
+
+    public override string GetDescription()
+    {
+        return "-" + ArmorValue.ToString() + " damage taken";
+    }
 }

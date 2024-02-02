@@ -7,6 +7,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] int gold = 500;
     [SerializeField] int health = 10;
     [SerializeField] int maxHealth = 10;
+    [SerializeField] int armor = 0;
+    [SerializeField] float extraFightSuccess = 0;
+
+    [SerializeField] BarMeter healthMeter;
+    [SerializeField] BarMeter armorStats;
+    [SerializeField] BarMeter weaponStats;
 
     static GameManager instance;
     public static int Gold
@@ -30,13 +36,38 @@ public class GameManager : MonoBehaviour
         set
         {
             instance.health = value;
-            HealthBar.UpdateHealth(value, instance.maxHealth);
+            instance.healthMeter.UpdateUI(value);
+        }
+    }
+    public static int Armor
+    {
+        get
+        {
+            return instance.armor;
+        }
+        set
+        {
+            instance.armor = value;
+            instance.armorStats.UpdateUI(value);
+        }
+    }
+    public static float ExtraFightSuccess
+    {
+        get
+        {
+            return instance.extraFightSuccess;
+        }
+        set
+        {
+            instance.extraFightSuccess = value;
+            instance.weaponStats.UpdateUI((int)(value * 10));
         }
     }
 
     void Awake()
     {
         instance = this;
+        healthMeter.MaxValue = maxHealth;
     }
 
     // Start is called before the first frame update

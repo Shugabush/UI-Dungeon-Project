@@ -3244,6 +3244,11 @@ MonoBehaviour:
   gold: 500
   health: 10
   maxHealth: 10
+  armor: 0
+  extraFightSuccess: 0
+  healthMeter: {fileID: 3791719039433450377}
+  armorStats: {fileID: 8479238733343544233}
+  weaponStats: {fileID: 999564534032284315}
 --- !u!114 &2326961671777706404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3338,7 +3343,6 @@ GameObject:
   - component: {fileID: 4625945988020428609}
   - component: {fileID: 8555461366805782752}
   - component: {fileID: 800821358740621738}
-  - component: {fileID: 697311276679115352}
   - component: {fileID: 3791719039433450377}
   m_Layer: 5
   m_Name: HealthBar
@@ -3407,19 +3411,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &697311276679115352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8637455690124057122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afc5d01d99f673c4b8039bbf72358a87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barMeter: {fileID: 3791719039433450377}
 --- !u!114 &3791719039433450377
 MonoBehaviour:
   m_ObjectHideFlags: 0

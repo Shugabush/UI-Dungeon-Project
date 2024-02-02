@@ -62,6 +62,7 @@ public class BarMeter : MonoBehaviour
             Image newIcon = new GameObject("Icon").AddComponent<Image>();
             newIcon.transform.parent = iconParent.transform;
             newIcon.sprite = iconSprite;
+            newIcon.enabled = false;
             icons.Add(newIcon);
         }
     }
@@ -72,6 +73,9 @@ public class BarMeter : MonoBehaviour
         {
             icons[i].enabled = newValue > i;
         }
-        text.text = newValue.ToString() + "/" + maxValue.ToString();
+        if (text != null)
+        {
+            text.text = newValue.ToString() + "/" + maxValue.ToString();
+        }
     }
 }
