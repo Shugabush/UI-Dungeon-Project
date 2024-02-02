@@ -3529,11 +3529,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoverPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 6052321004592308720, guid: 1ce3f1853268d974e8ebd06880a2821a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ce3f1853268d974e8ebd06880a2821a, type: 3}
 --- !u!114 &2233781204805605451 stripped

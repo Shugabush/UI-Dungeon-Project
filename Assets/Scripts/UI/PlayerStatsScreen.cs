@@ -8,10 +8,14 @@ public class PlayerStatsScreen : MonoBehaviour
     // Assign these in the inspector
     [SerializeField] Image armorIcon;
     [SerializeField] Image weaponIcon;
+    [SerializeField] BaseSlot armorSlot;
+    [SerializeField] BaseSlot weaponSlot;
     [SerializeField] InventorySlot[] slots = new InventorySlot[0];
 
     public static Image ArmorIcon => instance.armorIcon;
     public static Image WeaponIcon => instance.weaponIcon;
+    static BaseSlot ArmorSlot => instance.armorSlot;
+    static BaseSlot WeaponSlot => instance.weaponSlot;
 
     static PlayerStatsScreen instance;
 
@@ -23,11 +27,31 @@ public class PlayerStatsScreen : MonoBehaviour
     public static void SelectWeapon(WeaponItem weapon)
     {
         WeaponIcon.sprite = weapon.SpriteForPlayer;
+        WeaponIcon.enabled = true;
+        WeaponSlot.Item = weapon;
     }
 
     public static void SelectArmor(ArmorItem armor)
     {
         ArmorIcon.sprite = armor.SpriteForPlayer;
+        ArmorIcon.enabled = true;
+        ArmorSlot.Item = armor;
+    }
+
+    public static void Equip(BaseSlot item)
+    {
+        if (item.GetType() == typeof(WeaponItem))
+        {
+            SelectWeapon((WeaponItem)item.Item);
+            item.button.interactable = false;
+            return;
+        }
+        if (item.GetType() == typeof(ArmorItem))
+        {
+            SelectArmor((ArmorItem)item.Item);
+            return;
+        }
+
     }
 
     /// <summary>

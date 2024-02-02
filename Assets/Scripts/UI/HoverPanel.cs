@@ -18,6 +18,11 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] Button purchaseButton;
     [SerializeField] Button equipButton;
 
+    CanvasGroup purchaseButtonCanvasGroup;
+
+    // Enable and disable this instead of this object so we can still run behavior
+    [SerializeField] GameObject folder;
+
     public RectTransform Rt { get; private set; }
 
     public ItemObject SelectedItem
@@ -42,7 +47,13 @@ public class HoverPanel : MonoBehaviour
     // that will prevent this hover panel from closing
     [SerializeField] GameObject[] selectablesToKeepThisEnabled = new GameObject[0];
 
-    public GameObject selectedObject;
+    public BaseSlot selectedSlot;
+
+    MaskableGraphic[] graphics;
+
+    const float yOffset = 25f;
+
+    bool justPurchased = false;
 
     void Awake()
     {
@@ -51,50 +62,55 @@ public class HoverPanel : MonoBehaviour
         if (purchaseButton != null)
         {
             purchaseButton.onClick.AddListener(Purchase);
+            purchaseButtonCanvasGroup = purchaseButton.GetComponent<CanvasGroup>();
         }
         if (equipButton != null)
         {
-            equipButton.onClick.AddListener(() => Equip(SelectedItem));
+            equipButton.onClick.AddListener(() => PlayerStatsScreen.Equip(selectedSlot));
         }
+
+        graphics = GetComponents<MaskableGraphic>();
+
+        DisableUI();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!justPurchased && Input.GetMouseButtonUp(0))
         {
-            if (EventSystem.current.currentSelectedGameObject == null)
+            if (AnyOtherSelectableSelected() || IsSelected())
             {
-                gameObject.SetActive(false);
+                EnableUI();
+                selectedSlot = EventSystem.current.currentSelectedGameObject.GetComponent<BaseSlot>();
+                if (selectedSlot != null)
+                {
+                    SelectedItem = selectedSlot.Item;
+                }
             }
-            else if (EventSystem.current.currentSelectedGameObject != selectedObject &&
-                !AnyOtherSelectableSelected() && !IsSelected())
+            else if (folder.activeInHierarchy)
             {
-                gameObject.SetActive(false);
+                DisableUI();
+                selectedSlot = null;
+                SelectedItem = null;
             }
         }
     }
 
-    public void Toggle(ItemObject item)
+    void EnableUI()
     {
-        if (item == null) return;
-        StopAllCoroutines();
-        if (IsOpen)
+        folder.SetActive(true);
+        foreach (var graphic in graphics)
         {
-            if (SelectedItem != item)
-            {
-                // Just switch the item out, don't close
-                SelectedItem = item;
-                // If the panel was in a state of closing
-                // before we stopped all coroutines,
-                // we need to make sure it's open
-                StartCoroutine(Open(item));
-                return;
-            }
-            StartCoroutine(Close());
+            graphic.enabled = true;
         }
-        else
+    }
+
+    void DisableUI()
+    {
+        folder.SetActive(false);
+        foreach (var graphic in graphics)
         {
-            StartCoroutine(Open(item));
+            graphic.enabled = false;
         }
     }
 
@@ -105,13 +121,35 @@ public class HoverPanel : MonoBehaviour
 
         if (purchaseButton != null)
         {
-            purchaseButton.interactable = GameManager.Gold >= selectedItem.GoldValue;
+            EnableOrDisablePurchaseButton();
         }
+
+        if (selectedItem.GetType() == typeof(ArmorItem) || selectedItem.GetType() == typeof(WeaponItem))
+        {
+            // We can only purchase one of each armor item and weapon item
+            DisableUI();
+            selectedSlot.button.interactable = false;
+        }
+
+        StartCoroutine(PurchaseCooldown());
+    }
+    
+    // Give a one frame cooldown,
+    // if we don't do this, when we purchase an item
+    // and then can't afford the next one, the logic in update
+    // will think the hover panel needs to be disabled
+    IEnumerator PurchaseCooldown()
+    {
+        justPurchased = true;
+        yield return null;
+        justPurchased = false;
     }
 
-    void Equip(ItemObject item)
+    void EnableOrDisablePurchaseButton()
     {
-
+        bool interactable = GameManager.Gold >= selectedItem.GoldValue;
+        purchaseButton.interactable = interactable;
+        purchaseButtonCanvasGroup.blocksRaycasts = interactable;
     }
 
     IEnumerator Open(ItemObject item)
@@ -121,7 +159,7 @@ public class HoverPanel : MonoBehaviour
 
         if (purchaseButton != null)
         {
-            purchaseButton.interactable = GameManager.Gold >= item.GoldValue;
+            EnableOrDisablePurchaseButton();
         }
 
         descriptionText.text = item.GetDescription();
@@ -168,7 +206,8 @@ public class HoverPanel : MonoBehaviour
     /// <returns>Whether or not any other selectable is selected besides the selected object</returns>
     bool AnyOtherSelectableSelected()
     {
-        if (EventSystem.current.currentSelectedGameObject == selectedObject)
+        if (selectedSlot != null &&
+            EventSystem.current.currentSelectedGameObject == selectedSlot.gameObject)
         {
             return false;
         }

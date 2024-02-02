@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d099d04230b5ae44b77323ef8cc1911, type: 3}
   m_Name: Greatsword
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 40f8f59b5386fdb458766bdb4e476fe1,
+    type: 3}
   <GoldValue>k__BackingField: 300
   description: 
   <DropChance>k__BackingField: 0.001
