@@ -7,15 +7,9 @@ public class InventoryLayout : MonoBehaviour
 {
     InventorySlot[] slots;
 
-    void Awake()
+    protected virtual void Awake()
     {
         slots = GetComponentsInChildren<InventorySlot>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>

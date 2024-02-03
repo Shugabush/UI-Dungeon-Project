@@ -14,6 +14,7 @@ public class DungeonRoomScreen : MonoBehaviour
     [SerializeField] TMP_Text successPercentText;
     [SerializeField] Button retreatButton;
     [SerializeField] TMP_Text retreatButtonText;
+    [SerializeField] LootLayout loot;
 
     static DungeonDifficulty[] Difficulties => instance.difficulties;
     public static Canvas ScreenCanvas => instance.screenCanvas;
@@ -22,8 +23,22 @@ public class DungeonRoomScreen : MonoBehaviour
     static TMP_Text SuccessPercentText => instance.successPercentText;
     static Button RetreatButton => instance.retreatButton;
     static TMP_Text RetreatButtonText => instance.retreatButtonText;
+    static LootLayout Loot => instance.loot;
 
     static DungeonRoomScreen instance;
+
+    DungeonDifficulty currentDifficulty;
+    public static DungeonDifficulty CurrentDifficulty
+    {
+        get
+        {
+            return instance.currentDifficulty;
+        }
+        private set
+        {
+            instance.currentDifficulty = value;
+        }
+    }
 
     void Awake()
     {
@@ -35,11 +50,11 @@ public class DungeonRoomScreen : MonoBehaviour
     {
         ActiveCanvasManager.SetCanvasActive(ScreenCanvas);
 
-        DungeonDifficulty difficulty = GetDifficulty(room.DifficultyIndex);
+        CurrentDifficulty = GetDifficulty(room.DifficultyIndex);
 
         CombatReport.enabled = true;
 
-        int successChance = difficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
+        int successChance = CurrentDifficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
         string successChanceString = successChance.ToString("00") + "%";
 
         int successPercent = Random.Range(0, 100);
@@ -55,9 +70,11 @@ public class DungeonRoomScreen : MonoBehaviour
             // The player succeeded
             successString += "\nSUCCESS!";
             room.Completed = true;
+
+            Loot.GenerateLoot();
         }
 
-        GameManager.Health -= Random.Range(difficulty.minHealthLost, difficulty.maxHealthLost);
+        GameManager.Health -= Random.Range(CurrentDifficulty.minHealthLost, CurrentDifficulty.maxHealthLost);
 
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
