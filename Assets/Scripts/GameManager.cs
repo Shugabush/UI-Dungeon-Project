@@ -67,12 +67,12 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        healthMeter.MaxValue = maxHealth;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        healthMeter.MaxValue = maxHealth;
         GoldUI.UpdateInstances(gold);
         Health = maxHealth;
     }
