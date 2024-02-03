@@ -57,6 +57,8 @@ public class DungeonRoomScreen : MonoBehaviour
             room.Completed = true;
         }
 
+        GameManager.Health -= Random.Range(difficulty.minHealthLost, difficulty.maxHealthLost);
+
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
         RetreatButton.image.enabled = true;

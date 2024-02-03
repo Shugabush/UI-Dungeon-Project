@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
         {
             instance.health = value;
             instance.healthMeter.UpdateUI(value);
+
+            if (value <= 0)
+            {
+                // TODO: Implement Game Over system
+            }
         }
     }
     public static int Armor
