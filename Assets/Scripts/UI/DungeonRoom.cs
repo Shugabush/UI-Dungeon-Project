@@ -107,6 +107,16 @@ public class DungeonRoom : MonoBehaviour
 #endif
     }
 
+    void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 24;
+        UnityEditor.Handles.color = Color.black;
+        UnityEditor.Handles.Label(transform.position, (difficultyIndex + 1).ToString(), style);
+#endif
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

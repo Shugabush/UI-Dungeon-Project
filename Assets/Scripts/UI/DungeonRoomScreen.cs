@@ -58,21 +58,25 @@ public class DungeonRoomScreen : MonoBehaviour
         string successChanceString = successChance.ToString("00") + "%";
 
         int successPercent = Random.Range(0, 100);
-        string successString = successPercent.ToString("00") + "%";
+        string successString = string.Empty;
 
         if (successPercent > successChance)
         {
             // The player failed
             successString += "\nFAIL!";
+            Loot.gameObject.SetActive(false);
         }
         else
         {
             // The player succeeded
             successString += "\nSUCCESS!";
-            room.Completed = true;
+            Loot.gameObject.SetActive(true);
 
             Loot.GenerateLoot();
         }
+
+        // The player completes the room regardless of whether they succeeded or not
+        room.Completed = true;
 
         GameManager.Health -= Random.Range(CurrentDifficulty.minHealthLost, CurrentDifficulty.maxHealthLost);
 

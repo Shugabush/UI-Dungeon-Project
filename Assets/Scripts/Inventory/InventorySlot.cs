@@ -9,7 +9,7 @@ public class InventorySlot : BaseSlot
 
     int count = 0;
 
-    int Count
+    public int Count
     {
         get
         {

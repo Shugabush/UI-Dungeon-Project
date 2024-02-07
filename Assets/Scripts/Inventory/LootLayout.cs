@@ -6,11 +6,16 @@ public class LootLayout : InventoryLayout
 {
     public void GenerateLoot()
     {
+        // Reset loot layout
+        RemoveAllItems();
+
         int itemsToDrop = Random.Range(DungeonRoomScreen.CurrentDifficulty.minLootDrops, DungeonRoomScreen.CurrentDifficulty.maxLootDrops);
 
         for (int i = 0; i < itemsToDrop; i++)
         {
-            AddItem(ItemDatabase.GetRandomItem());
+            ItemObject item = ItemDatabase.GetRandomItem();
+            AddItem(item);
+            StorageScreen.Inventory.AddItem(item);
         }
     }
 }

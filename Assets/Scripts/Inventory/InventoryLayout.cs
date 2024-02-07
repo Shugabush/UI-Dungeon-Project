@@ -61,4 +61,15 @@ public class InventoryLayout : MonoBehaviour
             targetSlot.AddItem(item);
         }
     }
+
+    public void RemoveAllItems()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot.Item != null)
+            {
+                slot.Count = 0;
+            }
+        }
+    }
 }

@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 3854444308953482151}
   - component: {fileID: 298620047485513590}
   - component: {fileID: 2571997272631263735}
+  - component: {fileID: 1914172964053272281}
   m_Layer: 5
   m_Name: DungeonRoomButton
   m_TagString: Untagged
@@ -270,9 +271,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7271ac1af954bcc41b6d0c20208de6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyIndex: 0
+  button: {fileID: 298620047485513590}
   nextDungeonRooms: []
   dungeonRoomDependencies: []
   minDungeonCompleteRequirement: 1
   unlocked: 0
   completed: 0
-  button: {fileID: 298620047485513590}
+--- !u!114 &1914172964053272281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854444308953482154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
