@@ -518,7 +518,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931596609695339624}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -661,6 +661,8 @@ MonoBehaviour:
   lineMat: {fileID: 2100000, guid: a203538a28bed5941900f76394bf324c, type: 2}
   screen: {fileID: 7892196255008609633}
   retreatButton: {fileID: 4151464342595669473}
+  lineWidth: 5
+  lineOffset: 5
 --- !u!1 &937022456197801634
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,8 +784,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6322702006382378823}
   m_HandleRect: {fileID: 3364696388310617855}
   m_Direction: 2
-  m_Value: 0.03962358
-  m_Size: 0.26419827
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5044,11 +5046,11 @@ MonoBehaviour:
   m_Content: {fileID: 1479630247563080883}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 50
   m_Viewport: {fileID: 5888550373142006138}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 6836511348231927071}

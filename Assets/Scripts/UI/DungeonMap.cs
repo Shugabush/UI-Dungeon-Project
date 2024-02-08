@@ -38,8 +38,10 @@ public class DungeonMap : MonoBehaviour
             targetPoint1.z = -1;
             targetPoint2.z = -1;
 
-            line.SetPosition(0, from.transform.position);
-            line.SetPosition(1, to.transform.position);
+            Vector3 direction = (to.transform.position - from.transform.position).normalized;
+
+            line.SetPosition(0, from.transform.position + (direction * LineOffset));
+            line.SetPosition(1, to.transform.position - (direction * LineOffset));
 
             if (!from.Completed || !to.Unlocked)
             {
@@ -65,7 +67,10 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] Canvas screen;
     [SerializeField] Button retreatButton;
 
-    const float lineWidth = 5f;
+    [SerializeField] float lineWidth = 5f;
+    [SerializeField] float lineOffset = 1f;
+
+    static float LineOffset => instance.lineOffset;
 
     static DungeonMap instance;
 
@@ -151,6 +156,24 @@ public class DungeonMap : MonoBehaviour
     public static void SetCurrentDifficulty(DungeonRoom room)
     {
         CurrentDifficulty = GetDifficulty(room);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+
+        foreach (var room in rooms)
+        {
+            if (room == null) continue;
+
+            foreach (var nextRoom in room.nextDungeonRooms)
+            {
+                if (nextRoom == null) continue;
+
+                Vector3 direction = (nextRoom.transform.position - room.transform.position).normalized;
+                Gizmos.DrawLine(room.transform.position + (direction * lineOffset), nextRoom.transform.position - (direction * lineOffset));
+            }
+        }
     }
 
 #if UNITY_EDITOR

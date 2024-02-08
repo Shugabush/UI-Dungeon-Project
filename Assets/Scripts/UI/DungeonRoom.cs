@@ -107,7 +107,7 @@ public class DungeonRoom : MonoBehaviour
 #endif
     }
 
-    void OnDrawGizmosSelected()
+    /*void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         foreach (var dungeonRoom in nextDungeonRooms)
@@ -126,7 +126,7 @@ public class DungeonRoom : MonoBehaviour
                 Gizmos.DrawLine(transform.position, dungeonRoom.transform.position);
             }
         }
-    }
+    }*/
 
     void CheckForUnlocked()
     {
