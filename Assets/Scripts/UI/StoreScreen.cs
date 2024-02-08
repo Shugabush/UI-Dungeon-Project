@@ -5,11 +5,24 @@ using UnityEngine;
 public class StoreScreen : MonoBehaviour
 {
     [SerializeField] BaseSlot[] merchandiseSlots = new BaseSlot[0];
+    static BaseSlot[] MerchandiseSlots => instance.merchandiseSlots;
 
-    public static StoreScreen Instance { get; private set; }
+    static StoreScreen instance;
 
     void Awake()
     {
-        Instance = this;
+        instance = this;
+    }
+
+    public static void EnableSlot(ItemObject targetItem)
+    {
+        foreach (var slot in MerchandiseSlots)
+        {
+            if (slot.Item == targetItem)
+            {
+                slot.button.interactable = true;
+                break;
+            }
+        }
     }
 }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c56608e37db724c9f5dc1b543889dc, type: 3}
   m_Name: Large Treasure
   m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: df58f37a7c52ba54db05fb5a87ba1fb7,
+    type: 3}
   <GoldValue>k__BackingField: 80
+  description: 
   <DropChance>k__BackingField: 0.05

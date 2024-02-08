@@ -189,6 +189,7 @@ public class HoverPanel : MonoBehaviour
 
     void Sell(InventorySlot slot)
     {
+        StoreScreen.EnableSlot(slot.Item);
         slot.RemoveItem(true);
         if (slot.Empty)
         {
