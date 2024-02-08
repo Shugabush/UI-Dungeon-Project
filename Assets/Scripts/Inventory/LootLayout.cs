@@ -15,7 +15,7 @@ public class LootLayout : InventoryLayout
         {
             ItemObject item = ItemDatabase.GetRandomItem();
             AddItem(item);
-            StorageScreen.Inventory.AddItem(item);
+            PlayerStatsScreen.AddItem(item);
         }
     }
 }

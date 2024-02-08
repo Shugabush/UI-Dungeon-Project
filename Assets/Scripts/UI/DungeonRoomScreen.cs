@@ -84,23 +84,17 @@ public class DungeonRoomScreen : MonoBehaviour
         SuccessPercentText.text = successString;
         ContinueButton.image.enabled = true;
         ContinueButtonText.text = "Continue";
-
-        StorageScreen.Instance.gameObject.SetActive(false);
-        StoreScreen.Instance.gameObject.SetActive(false);
     }
 
     public static void DisableCombatReport()
     {
-        ActiveCanvasManager.SetCanvasActive(DungeonMap.MapCanvas);
+        ActiveCanvasManager.SetCanvasActive(DungeonMap.Screen);
 
         CombatReport.enabled = false;
         DifficultyAndSuccessText.text = string.Empty;
         SuccessPercentText.text = string.Empty;
         ContinueButton.image.enabled = false;
         ContinueButtonText.text = string.Empty;
-
-        StorageScreen.Instance.gameObject.SetActive(true);
-        StoreScreen.Instance.gameObject.SetActive(true);
     }
 
     public static DungeonDifficulty GetDifficulty(int index)

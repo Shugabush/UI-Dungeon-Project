@@ -11,11 +11,13 @@ public class PlayerStatsScreen : MonoBehaviour
     [SerializeField] BaseSlot armorSlot;
     [SerializeField] BaseSlot weaponSlot;
     [SerializeField] InventorySlot[] slots = new InventorySlot[0];
+    [SerializeField] InventoryLayout inventory;
 
     public static Image ArmorIcon => instance.armorIcon;
     public static Image WeaponIcon => instance.weaponIcon;
     public static BaseSlot ArmorSlot => instance.armorSlot;
     public static BaseSlot WeaponSlot => instance.weaponSlot;
+    public static InventoryLayout Inventory => instance.inventory;
 
     static PlayerStatsScreen instance;
 
@@ -83,11 +85,36 @@ public class PlayerStatsScreen : MonoBehaviour
             InventorySlot targetSlot = GetSlotWithItem(slot.Item);
             if (targetSlot != null)
             {
-                GetSlotWithItem(slot.Item).AddItem(slot.Item);
+                targetSlot.AddItem(slot.Item);
             }
         }
 
         slot.RemoveItem();
+    }
+
+    /// <summary>
+    /// Adds the given item to the proper slot
+    /// </summary>
+    public static void AddItem(ItemObject item)
+    {
+        if (item == null) return;
+
+        if (item.GetType() == typeof(WeaponItem))
+        {
+            SelectWeapon((WeaponItem)item);
+        }
+        else if (item.GetType() == typeof(ArmorItem))
+        {
+            SelectArmor((ArmorItem)item);
+        }
+        else
+        {
+            InventorySlot targetSlot = GetSlotWithItem(item);
+            if (targetSlot != null)
+            {
+                targetSlot.AddItem(item);
+            }
+        }
     }
 
     /// <summary>

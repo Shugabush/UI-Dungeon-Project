@@ -47,28 +47,30 @@ public class DungeonMap : MonoBehaviour
         }
     }
 
-    // Assign these in the inspector
+    // Assign in the inspector
     [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
-    [SerializeField] Canvas mapCanvas;
 
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> lines;
     [SerializeField] Material lineMat;
+
+    [SerializeField] Canvas screen;
     [SerializeField] Button retreatButton;
 
     const float lineWidth = 0.25f;
 
     static DungeonMap instance;
 
-    public static Canvas MapCanvas => instance.mapCanvas;
+    public static Canvas Screen => instance.screen;
 
     void Awake()
     {
         instance = this;
-        if (mapCanvas == null)
+        if (screen == null)
         {
-            mapCanvas = GetComponent<Canvas>();
+            screen = GetComponent<Canvas>();
         }
+        retreatButton.onClick.AddListener(RetreatToSurface);
 
         lines = new List<RoomLine>();
 
@@ -110,7 +112,7 @@ public class DungeonMap : MonoBehaviour
     {
         foreach (var line in lines)
         {
-            if (mapCanvas.enabled)
+            if (screen.enabled)
             {
                 line.line.enabled = true;
                 line.Update();
@@ -120,5 +122,10 @@ public class DungeonMap : MonoBehaviour
                 line.line.enabled = false;
             }
         }
+    }
+
+    static void RetreatToSurface()
+    {
+        Screen.enabled = false;
     }
 }
