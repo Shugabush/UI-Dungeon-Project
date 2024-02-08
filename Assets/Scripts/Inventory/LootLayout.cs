@@ -9,7 +9,7 @@ public class LootLayout : InventoryLayout
         // Reset loot layout
         RemoveAllItems();
 
-        int itemsToDrop = Random.Range(DungeonRoomScreen.CurrentDifficulty.minLootDrops, DungeonRoomScreen.CurrentDifficulty.maxLootDrops);
+        int itemsToDrop = Random.Range(DungeonMap.CurrentDifficulty.minLootDrops, DungeonMap.CurrentDifficulty.maxLootDrops);
 
         for (int i = 0; i < itemsToDrop; i++)
         {

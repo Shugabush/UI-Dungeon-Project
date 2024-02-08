@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c56608e37db724c9f5dc1b543889dc, type: 3}
   m_Name: Medium Treasure
   m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: a18ce8adb47c6dc49acedd4e6498d8ca,
+    type: 3}
   <GoldValue>k__BackingField: 40
+  description: 
   <DropChance>k__BackingField: 0.25

@@ -10,4 +10,5 @@ public struct DungeonDifficulty
     public int maxHealthLost;
     public int minLootDrops;
     public int maxLootDrops;
+    public float mapYLevel;
 }

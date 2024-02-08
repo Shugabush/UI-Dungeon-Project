@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class DungeonRoomScreen : MonoBehaviour
 {
-    [SerializeField] DungeonDifficulty[] difficulties = new DungeonDifficulty[0];
-
     [SerializeField] Canvas screenCanvas;
     [SerializeField] Image combatReport;
     [SerializeField] TMP_Text difficultyAndSuccessText;
@@ -16,7 +14,6 @@ public class DungeonRoomScreen : MonoBehaviour
     [SerializeField] TMP_Text continueButtonText;
     [SerializeField] LootLayout loot;
 
-    static DungeonDifficulty[] Difficulties => instance.difficulties;
     public static Canvas ScreenCanvas => instance.screenCanvas;
     static Image CombatReport => instance.combatReport;
     static TMP_Text DifficultyAndSuccessText => instance.difficultyAndSuccessText;
@@ -26,19 +23,6 @@ public class DungeonRoomScreen : MonoBehaviour
     static LootLayout Loot => instance.loot;
 
     static DungeonRoomScreen instance;
-
-    DungeonDifficulty currentDifficulty;
-    public static DungeonDifficulty CurrentDifficulty
-    {
-        get
-        {
-            return instance.currentDifficulty;
-        }
-        private set
-        {
-            instance.currentDifficulty = value;
-        }
-    }
 
     void Awake()
     {
@@ -50,11 +34,11 @@ public class DungeonRoomScreen : MonoBehaviour
     {
         ActiveCanvasManager.SetCanvasActive(ScreenCanvas);
 
-        CurrentDifficulty = GetDifficulty(room.DifficultyIndex);
+        DungeonMap.SetCurrentDifficulty(room);
 
         CombatReport.enabled = true;
 
-        int successChance = CurrentDifficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
+        int successChance = DungeonMap.CurrentDifficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
         string successChanceString = successChance.ToString("00") + "%";
 
         int successPercent = Random.Range(0, 100);
@@ -78,7 +62,7 @@ public class DungeonRoomScreen : MonoBehaviour
         // The player completes the room regardless of whether they succeeded or not
         room.Completed = true;
 
-        GameManager.Health -= Random.Range(CurrentDifficulty.minHealthLost, CurrentDifficulty.maxHealthLost);
+        GameManager.Health -= Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost);
 
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
@@ -95,10 +79,5 @@ public class DungeonRoomScreen : MonoBehaviour
         SuccessPercentText.text = string.Empty;
         ContinueButton.image.enabled = false;
         ContinueButtonText.text = string.Empty;
-    }
-
-    public static DungeonDifficulty GetDifficulty(int index)
-    {
-        return Difficulties[index];
     }
 }

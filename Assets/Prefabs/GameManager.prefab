@@ -588,6 +588,67 @@ MonoBehaviour:
   - {fileID: 315950090080607502}
   - {fileID: 5681832853090523783}
   - {fileID: 117524913718633145}
+  difficulties:
+  - baseFightSuccess: 70
+    minHealthLost: 1
+    maxHealthLost: 3
+    minLootDrops: 1
+    maxLootDrops: 2
+    mapYLevel: 100
+  - baseFightSuccess: 60
+    minHealthLost: 2
+    maxHealthLost: 4
+    minLootDrops: 2
+    maxLootDrops: 3
+    mapYLevel: 250
+  - baseFightSuccess: 50
+    minHealthLost: 3
+    maxHealthLost: 5
+    minLootDrops: 3
+    maxLootDrops: 4
+    mapYLevel: 400
+  - baseFightSuccess: 40
+    minHealthLost: 3
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 5
+    mapYLevel: 0
+  - baseFightSuccess: 30
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
+  - baseFightSuccess: 25
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
+  - baseFightSuccess: 20
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
+  - baseFightSuccess: 15
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
+  - baseFightSuccess: 12
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
+  - baseFightSuccess: 10
+    minHealthLost: 4
+    maxHealthLost: 6
+    minLootDrops: 4
+    maxLootDrops: 6
+    mapYLevel: 0
   lineMat: {fileID: 2100000, guid: a203538a28bed5941900f76394bf324c, type: 2}
   screen: {fileID: 7892196255008609633}
   retreatButton: {fileID: 4151464342595669473}
@@ -708,12 +769,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6322702006382378823}
   m_HandleRect: {fileID: 3364696388310617855}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.29210228
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1521,57 +1582,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63960835ebf9d6747ac226e6e57b9142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulties:
-  - baseFightSuccess: 70
-    minHealthLost: 1
-    maxHealthLost: 3
-    minLootDrops: 1
-    maxLootDrops: 2
-  - baseFightSuccess: 60
-    minHealthLost: 2
-    maxHealthLost: 4
-    minLootDrops: 2
-    maxLootDrops: 3
-  - baseFightSuccess: 50
-    minHealthLost: 3
-    maxHealthLost: 5
-    minLootDrops: 3
-    maxLootDrops: 4
-  - baseFightSuccess: 40
-    minHealthLost: 3
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 5
-  - baseFightSuccess: 30
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
-  - baseFightSuccess: 25
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
-  - baseFightSuccess: 20
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
-  - baseFightSuccess: 15
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
-  - baseFightSuccess: 12
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
-  - baseFightSuccess: 10
-    minHealthLost: 4
-    maxHealthLost: 6
-    minLootDrops: 4
-    maxLootDrops: 6
   screenCanvas: {fileID: 6743166338941355343}
   combatReport: {fileID: 2989043101663012421}
   difficultyAndSuccessText: {fileID: 8357365454090180715}

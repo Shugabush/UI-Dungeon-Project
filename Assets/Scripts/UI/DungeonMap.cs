@@ -49,6 +49,7 @@ public class DungeonMap : MonoBehaviour
 
     // Assign in the inspector
     [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
+    [SerializeField] DungeonDifficulty[] difficulties = new DungeonDifficulty[0];
 
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> lines;
@@ -62,6 +63,21 @@ public class DungeonMap : MonoBehaviour
     static DungeonMap instance;
 
     public static Canvas Screen => instance.screen;
+    static DungeonDifficulty[] Difficulties => instance.difficulties;
+    DungeonDifficulty currentDifficulty;
+    public static DungeonDifficulty CurrentDifficulty
+    {
+        get
+        {
+            return instance.currentDifficulty;
+        }
+        private set
+        {
+            instance.currentDifficulty = value;
+        }
+    }
+
+    public static int DifficultyCount => Difficulties.Length;
 
     void Awake()
     {
@@ -99,14 +115,10 @@ public class DungeonMap : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
-    [ContextMenu("Get Room Children")]
-    void GetRoomChildren()
+    void Start()
     {
-        rooms = GetComponentsInChildren<DungeonRoom>();
-        UnityEditor.EditorUtility.SetDirty(this);
+
     }
-#endif
 
     void Update()
     {
@@ -128,4 +140,31 @@ public class DungeonMap : MonoBehaviour
     {
         Screen.enabled = false;
     }
+
+    public static DungeonDifficulty GetDifficulty(DungeonRoom room)
+    {
+        return Difficulties[room.DifficultyIndex];
+    }
+    public static void SetCurrentDifficulty(DungeonRoom room)
+    {
+        CurrentDifficulty = GetDifficulty(room);
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("Get Room Children")]
+    void GetRoomChildren()
+    {
+        rooms = GetComponentsInChildren<DungeonRoom>();
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        foreach (var difficulty in difficulties)
+        {
+            Gizmos.DrawRay(Vector3.up * difficulty.mapYLevel, Vector3.right * 100);
+        }
+    }
+#endif
 }
