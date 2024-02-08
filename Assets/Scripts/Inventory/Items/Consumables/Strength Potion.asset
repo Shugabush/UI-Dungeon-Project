@@ -17,5 +17,5 @@ MonoBehaviour:
   <GoldValue>k__BackingField: 200
   description: 
   <DropChance>k__BackingField: 0.03
-  <StatsValue>k__BackingField: 0.2
+  <StatsValue>k__BackingField: 20
   <ItemType>k__BackingField: 1

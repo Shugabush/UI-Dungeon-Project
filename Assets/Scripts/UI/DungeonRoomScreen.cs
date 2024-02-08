@@ -39,15 +39,25 @@ public class DungeonRoomScreen : MonoBehaviour
         CombatReport.enabled = true;
 
         int successChance = DungeonMap.CurrentDifficulty.baseFightSuccess + PlayerStatsScreen.GetAdditionalFightSuccess();
+
+        if (GameManager.IsInvisible)
+        {
+            successChance = 0;
+        }
+
         string successChanceString = successChance.ToString("00") + "%";
 
         int successPercent = Random.Range(0, 100);
         string successString = string.Empty;
 
-        if (successPercent > successChance)
+        if (successPercent >= successChance)
         {
             // The player failed
             successString += "\nFAIL!";
+            if (GameManager.IsInvisible)
+            {
+                successString += " (Invisible. No damage taken)";
+            }
             Loot.gameObject.SetActive(false);
         }
         else
@@ -62,12 +72,18 @@ public class DungeonRoomScreen : MonoBehaviour
         // The player completes the room regardless of whether they succeeded or not
         room.Completed = true;
 
-        GameManager.Health -= Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost);
+        if (!GameManager.IsInvisible)
+        {
+            GameManager.Health -= Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost);
+        }
 
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
         ContinueButton.image.enabled = true;
         ContinueButtonText.text = "Continue";
+
+        // Invisibility only lasts for one dungeon room
+        GameManager.IsInvisible = false;
     }
 
     public static void DisableCombatReport()

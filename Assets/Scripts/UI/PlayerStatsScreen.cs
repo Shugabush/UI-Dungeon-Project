@@ -43,7 +43,7 @@ public class PlayerStatsScreen : MonoBehaviour
         WeaponIcon.sprite = weapon.SpriteForPlayer;
         WeaponIcon.enabled = true;
         WeaponSlot.AddItem(weapon);
-        GameManager.ExtraFightSuccess += ((WeaponItem)WeaponSlot.Item).Strength;
+        GameManager.ExtraFightSuccess += ((WeaponItem)WeaponSlot.Item).ExtraFightSuccess;
     }
 
     public static void SelectArmor(ArmorItem armor)
@@ -57,21 +57,21 @@ public class PlayerStatsScreen : MonoBehaviour
         ArmorIcon.sprite = armor.SpriteForPlayer;
         ArmorIcon.enabled = true;
         ArmorSlot.AddItem(armor);
-        GameManager.Armor += ((ArmorItem)ArmorSlot.Item).ArmorValue;
+        GameManager.Armor += ((ArmorItem)ArmorSlot.Item).DamageReduction;
     }
 
     public static void RemoveWeapon()
     {
         WeaponIcon.sprite = DefaultWeaponSprite;
         WeaponIcon.enabled = DefaultWeaponSprite != null;
-        GameManager.ExtraFightSuccess -= ((WeaponItem)WeaponSlot.Item).Strength;
+        GameManager.ExtraFightSuccess -= ((WeaponItem)WeaponSlot.Item).ExtraFightSuccess;
     }
 
     public static void RemoveArmor()
     {
         ArmorIcon.sprite = DefaultArmorSprite;
         ArmorIcon.enabled = DefaultArmorSprite != null;
-        GameManager.Armor -= ((ArmorItem)ArmorSlot.Item).ArmorValue;
+        GameManager.Armor -= ((ArmorItem)ArmorSlot.Item).DamageReduction;
     }
 
     public static void Equip(InventorySlot slot)
@@ -157,6 +157,6 @@ public class PlayerStatsScreen : MonoBehaviour
             return 0;
         }
 
-        return (int)((WeaponSlot.Item as WeaponItem).Strength * 100);
+        return (int)((WeaponSlot.Item as WeaponItem).ExtraFightSuccess * 100);
     }
 }

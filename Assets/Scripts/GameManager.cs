@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int health = 10;
     [SerializeField] int maxHealth = 10;
     [SerializeField] int armor = 0;
-    [SerializeField] float extraFightSuccess = 0;
+    [SerializeField] int extraFightSuccess = 0;
 
     [SerializeField] BarMeter healthMeter;
     [SerializeField] BarMeter armorStats;
@@ -53,10 +53,10 @@ public class GameManager : MonoBehaviour
         set
         {
             instance.armor = value;
-            instance.armorStats.UpdateUI(value);
+            ArmorStats.UpdateUI(value);
         }
     }
-    public static float ExtraFightSuccess
+    public static int ExtraFightSuccess
     {
         get
         {
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         set
         {
             instance.extraFightSuccess = value;
-            instance.weaponStats.UpdateUI((int)(value * 10));
+            WeaponStats.UpdateUI((int)(value / 10f));
         }
     }
 

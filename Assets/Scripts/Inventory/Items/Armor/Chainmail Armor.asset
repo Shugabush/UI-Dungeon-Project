@@ -19,4 +19,4 @@ MonoBehaviour:
   <DropChance>k__BackingField: 0.007
   <SpriteForPlayer>k__BackingField: {fileID: 21300000, guid: 256baaccdda7c92408719971d143ebf7,
     type: 3}
-  <ArmorValue>k__BackingField: 2
+  <DamageReduction>k__BackingField: 2

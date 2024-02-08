@@ -9,11 +9,11 @@ public class ArmorItem : ItemObject
     public Sprite SpriteForPlayer { get; private set; }
 
     [field: SerializeField]
-    public int ArmorValue { get; private set; } = 1;
+    public int DamageReduction { get; private set; } = 1;
 
     public override string GetDescription()
     {
-        return "-" + ArmorValue.ToString() + " damage taken";
+        return "-" + DamageReduction.ToString() + " damage taken";
     }
 
     public override bool Useable()

@@ -9,11 +9,11 @@ public class WeaponItem : ItemObject
     public Sprite SpriteForPlayer { get; private set; }
 
     [field: SerializeField]
-    public float Strength { get; private set; } = 0.1f;
+    public int ExtraFightSuccess { get; private set; } = 1;
 
     public override string GetDescription()
     {
-        return "+" + Strength.ToPercentString() + " Fight Success";
+        return "+" + ExtraFightSuccess.ToPercentString() + " Fight Success";
     }
 
     public override bool Useable()
