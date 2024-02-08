@@ -31,8 +31,15 @@ public class DungeonMap : MonoBehaviour
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, primaryRt.position, Camera.main, out Vector2 point1);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, secondaryRt.position, Camera.main, out Vector2 point2);
-            line.SetPosition(0, parent.TransformPoint(point1));
-            line.SetPosition(1, parent.TransformPoint(point2));
+
+            Vector3 targetPoint1 = parent.TransformPoint(point1);
+            Vector3 targetPoint2 = parent.TransformPoint(point2);
+
+            targetPoint1.z = -1;
+            targetPoint2.z = -1;
+
+            line.SetPosition(0, from.transform.position);
+            line.SetPosition(1, to.transform.position);
 
             if (!from.Completed || !to.Unlocked)
             {
@@ -52,13 +59,13 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] DungeonDifficulty[] difficulties = new DungeonDifficulty[0];
 
     // Lines that will be connecting each of the rooms to each other
-    List<RoomLine> lines;
+    List<RoomLine> roomLines;
     [SerializeField] Material lineMat;
 
     [SerializeField] Canvas screen;
     [SerializeField] Button retreatButton;
 
-    const float lineWidth = 0.25f;
+    const float lineWidth = 5f;
 
     static DungeonMap instance;
 
@@ -88,7 +95,7 @@ public class DungeonMap : MonoBehaviour
         }
         retreatButton.onClick.AddListener(RetreatToSurface);
 
-        lines = new List<RoomLine>();
+        roomLines = new List<RoomLine>();
 
         foreach (var room in rooms)
         {
@@ -106,32 +113,28 @@ public class DungeonMap : MonoBehaviour
                         newLine.transform.parent = transform;
                         newLine.transform.localPosition = Vector3.zero;
                         newLine.positionCount = 2;
+
                         RoomLine roomLine = new RoomLine(newLine, transform as RectTransform, dependency, room);
 
-                        lines.Add(roomLine);
+                        roomLines.Add(roomLine);
                     }
                 }
             }
         }
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
-        foreach (var line in lines)
+        foreach (var roomLine in roomLines)
         {
             if (screen.enabled)
             {
-                line.line.enabled = true;
-                line.Update();
+                roomLine.line.enabled = true;
+                roomLine.Update();
             }
             else
             {
-                line.line.enabled = false;
+                roomLine.line.enabled = false;
             }
         }
     }

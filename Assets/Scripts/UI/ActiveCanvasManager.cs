@@ -12,6 +12,14 @@ public class ActiveCanvasManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        foreach (var canvas in canvases)
+        {
+            if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+            {
+                canvas.worldCamera = Camera.main;
+            }
+        }
     }
 
     /// <summary>
