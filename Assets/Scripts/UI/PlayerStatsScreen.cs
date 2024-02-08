@@ -13,11 +13,17 @@ public class PlayerStatsScreen : MonoBehaviour
     [SerializeField] InventorySlot[] slots = new InventorySlot[0];
     [SerializeField] InventoryLayout inventory;
 
+    [SerializeField] Sprite defaultArmorSprite;
+    [SerializeField] Sprite defaultWeaponSprite;
+
     public static Image ArmorIcon => instance.armorIcon;
     public static Image WeaponIcon => instance.weaponIcon;
     public static BaseSlot ArmorSlot => instance.armorSlot;
     public static BaseSlot WeaponSlot => instance.weaponSlot;
     public static InventoryLayout Inventory => instance.inventory;
+
+    static Sprite DefaultArmorSprite => instance.defaultArmorSprite;
+    static Sprite DefaultWeaponSprite => instance.defaultWeaponSprite;
 
     static PlayerStatsScreen instance;
 
@@ -56,15 +62,15 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static void RemoveWeapon()
     {
-        WeaponIcon.sprite = null;
-        WeaponIcon.enabled = false;
+        WeaponIcon.sprite = DefaultWeaponSprite;
+        WeaponIcon.enabled = DefaultWeaponSprite != null;
         GameManager.ExtraFightSuccess = 0;
     }
 
     public static void RemoveArmor()
     {
-        ArmorIcon.sprite = null;
-        ArmorIcon.enabled = false;
+        ArmorIcon.sprite = DefaultArmorSprite;
+        ArmorIcon.enabled = DefaultArmorSprite != null;
         GameManager.Armor = 0;
     }
 

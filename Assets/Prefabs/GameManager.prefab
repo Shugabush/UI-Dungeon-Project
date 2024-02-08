@@ -2427,6 +2427,8 @@ MonoBehaviour:
   - {fileID: 7974788049819919856}
   - {fileID: 2241209949112137106}
   inventory: {fileID: 5326367183127770880}
+  defaultArmorSprite: {fileID: 0}
+  defaultWeaponSprite: {fileID: 0}
 --- !u!114 &1556191531863863406
 MonoBehaviour:
   m_ObjectHideFlags: 0
