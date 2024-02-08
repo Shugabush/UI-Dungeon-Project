@@ -20,6 +20,7 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] Button unequipButton;
     [SerializeField] Button sellButton;
     [SerializeField] TMP_Text sellButtonText;
+    [SerializeField] Button useButton;
 
     CanvasGroup purchaseButtonCanvasGroup;
 
@@ -80,6 +81,10 @@ public class HoverPanel : MonoBehaviour
         {
             sellButton.onClick.AddListener(() => Sell(lastNonNullSelectedSlot as InventorySlot));
         }
+        if (useButton != null)
+        {
+            useButton.onClick.AddListener(() => Use(lastNonNullSelectedSlot as InventorySlot));
+        }
 
         graphics = GetComponents<MaskableGraphic>();
 
@@ -129,9 +134,16 @@ public class HoverPanel : MonoBehaviour
         if (selectedSlot != null)
         {
             Rt.position = selectedSlot.Rt.position + Vector3.up * yOffset;
-            if (sellButtonText != null && selectedSlot.Item != null)
+            if (selectedSlot.Item != null)
             {
-                sellButtonText.text = $"Sell ({selectedSlot.Item.GoldValue} Gold)";
+                if (sellButtonText != null)
+                {
+                    sellButtonText.text = $"Sell ({selectedSlot.Item.GoldValue} Gold)";
+                }
+                if (useButton != null)
+                {
+                    useButton.gameObject.SetActive(selectedSlot.Item.Useable());
+                }
             }
         }
         folder.SetActive(true);
@@ -195,6 +207,11 @@ public class HoverPanel : MonoBehaviour
         {
             DisableUI();
         }
+    }
+
+    void Use(InventorySlot slot)
+    {
+        Debug.Log("Using!");
     }
     
     // Give a one frame cooldown,

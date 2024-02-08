@@ -20,4 +20,9 @@ public class ItemObject : ScriptableObject
     {
         return description;
     }
+
+    public virtual bool Useable()
+    {
+        return true;
+    }
 }

@@ -15,4 +15,9 @@ public class WeaponItem : ItemObject
     {
         return "+" + Strength.ToPercentString() + " Fight Success";
     }
+
+    public override bool Useable()
+    {
+        return false;
+    }
 }

@@ -15,4 +15,9 @@ public class ArmorItem : ItemObject
     {
         return "-" + ArmorValue.ToString() + " damage taken";
     }
+
+    public override bool Useable()
+    {
+        return false;
+    }
 }
