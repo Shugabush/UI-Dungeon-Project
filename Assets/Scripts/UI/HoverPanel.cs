@@ -40,11 +40,16 @@ public class HoverPanel : MonoBehaviour
             selectedItem = value;
             if (selectedItem != null)
             {
-                nameText.text = selectedItem.name;
-                descriptionText.text = selectedItem.GetDescription();
-                priceText.text = selectedItem.GoldValue.ToString();
+                SetTexts();
             }
         }
+    }
+
+    void SetTexts()
+    {
+        nameText.text = selectedItem.name;
+        descriptionText.text = selectedItem.GetDescription();
+        priceText.text = selectedItem.GoldValue.ToString() + " Gold";
     }
 
     // If we select any of these selectables,
@@ -252,8 +257,6 @@ public class HoverPanel : MonoBehaviour
 
         EnableOrDisablePurchaseButton();
 
-        descriptionText.text = item.GetDescription();
-        priceText.text = item.GoldValue.ToString() + " Gold";
         yield return null;
         IsOpen = true;
     }
