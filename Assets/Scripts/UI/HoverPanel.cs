@@ -18,6 +18,8 @@ public class HoverPanel : MonoBehaviour
     [SerializeField] Button purchaseButton;
     [SerializeField] Button equipButton;
     [SerializeField] Button unequipButton;
+    [SerializeField] Button sellButton;
+    [SerializeField] TMP_Text sellButtonText;
 
     CanvasGroup purchaseButtonCanvasGroup;
 
@@ -74,6 +76,10 @@ public class HoverPanel : MonoBehaviour
         {
             unequipButton.onClick.AddListener(() => Unequip(lastNonNullSelectedSlot as InventorySlot));
         }
+        if (sellButton != null)
+        {
+            sellButton.onClick.AddListener(() => Sell(lastNonNullSelectedSlot as InventorySlot));
+        }
 
         graphics = GetComponents<MaskableGraphic>();
 
@@ -88,9 +94,11 @@ public class HoverPanel : MonoBehaviour
         }
         if (!justPurchased && Input.GetMouseButtonUp(0))
         {
-            if (AnyOtherSelectableSelected() || IsSelected())
+            GameObject selectedGameObject = EventSystem.current.currentSelectedGameObject;
+
+            if (selectedGameObject != null && (AnyOtherSelectableSelected() || IsSelected()))
             {
-                selectedSlot = EventSystem.current.currentSelectedGameObject.GetComponent<BaseSlot>();
+                selectedSlot = selectedGameObject.GetComponent<BaseSlot>();
                 if (selectedSlot != null)
                 {
                     SelectedItem = selectedSlot.Item;
@@ -110,7 +118,7 @@ public class HoverPanel : MonoBehaviour
             }
         }
 
-        if (purchaseButton != null && folder.activeInHierarchy && selectedItem != null)
+        if (folder.activeInHierarchy && selectedItem != null)
         {
             EnableOrDisablePurchaseButton();
         }
@@ -121,6 +129,10 @@ public class HoverPanel : MonoBehaviour
         if (selectedSlot != null)
         {
             Rt.position = selectedSlot.Rt.position + Vector3.up * yOffset;
+            if (sellButtonText != null && selectedSlot.Item != null)
+            {
+                sellButtonText.text = $"Sell ({selectedSlot.Item.GoldValue} Gold)";
+            }
         }
         folder.SetActive(true);
         foreach (var graphic in graphics)
@@ -146,10 +158,7 @@ public class HoverPanel : MonoBehaviour
         StorageScreen.Inventory.AddItem(selectedItem);
         GameManager.Gold -= selectedItem.GoldValue;
 
-        if (purchaseButton != null)
-        {
-            EnableOrDisablePurchaseButton();
-        }
+        EnableOrDisablePurchaseButton();
 
         if (selectedItem.GetType() == typeof(ArmorItem) || selectedItem.GetType() == typeof(WeaponItem))
         {
@@ -177,6 +186,15 @@ public class HoverPanel : MonoBehaviour
             DisableUI();
         }
     }
+
+    void Sell(InventorySlot slot)
+    {
+        slot.RemoveItem(true);
+        if (slot.Empty)
+        {
+            DisableUI();
+        }
+    }
     
     // Give a one frame cooldown,
     // if we don't do this, when we purchase an item
@@ -191,9 +209,12 @@ public class HoverPanel : MonoBehaviour
 
     void EnableOrDisablePurchaseButton()
     {
-        bool interactable = GameManager.Gold >= selectedItem.GoldValue;
-        purchaseButton.interactable = interactable;
-        purchaseButtonCanvasGroup.blocksRaycasts = interactable;
+        if (purchaseButton != null)
+        {
+            bool interactable = GameManager.Gold >= selectedItem.GoldValue;
+            purchaseButton.interactable = interactable;
+            purchaseButtonCanvasGroup.blocksRaycasts = interactable;
+        }
     }
 
     IEnumerator Open(ItemObject item)
@@ -201,10 +222,7 @@ public class HoverPanel : MonoBehaviour
         StopCoroutine(Close());
         SelectedItem = item;
 
-        if (purchaseButton != null)
-        {
-            EnableOrDisablePurchaseButton();
-        }
+        EnableOrDisablePurchaseButton();
 
         descriptionText.text = item.GetDescription();
         priceText.text = item.GoldValue.ToString() + " Gold";
@@ -226,22 +244,29 @@ public class HoverPanel : MonoBehaviour
     /// <returns>Whether or not the hover panel is selected or either of its buttons are selected</returns>
     public bool IsSelected()
     {
-        if (EventSystem.current.currentSelectedGameObject == gameObject)
+        GameObject selectedGameObject = EventSystem.current.currentSelectedGameObject;
+
+        if (selectedGameObject  == gameObject)
         {
             return true;
         }
 
-        if (purchaseButton != null && EventSystem.current.currentSelectedGameObject == purchaseButton.gameObject)
+        if (purchaseButton != null && selectedGameObject == purchaseButton.gameObject)
         {
             return true;
         }
 
-        if (equipButton != null && EventSystem.current.currentSelectedGameObject == equipButton.gameObject)
+        if (equipButton != null && selectedGameObject == equipButton.gameObject)
         {
             return true;
         }
 
-        if (unequipButton != null && EventSystem.current.currentSelectedGameObject == unequipButton.gameObject)
+        if (unequipButton != null && selectedGameObject == unequipButton.gameObject)
+        {
+            return true;
+        }
+
+        if (sellButton != null && selectedGameObject == sellButton.gameObject)
         {
             return true;
         }

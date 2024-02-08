@@ -45,10 +45,14 @@ public class InventorySlot : BaseSlot
         }
     }
 
-    public void RemoveItem()
+    public void RemoveItem(bool sell = false)
     {
         if (!Empty)
         {
+            if (sell)
+            {
+                GameManager.Gold += item.GoldValue;
+            }
             Count--;
         }
         else

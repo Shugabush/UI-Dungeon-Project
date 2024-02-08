@@ -157,14 +157,5 @@ public class DungeonMap : MonoBehaviour
         rooms = GetComponentsInChildren<DungeonRoom>();
         UnityEditor.EditorUtility.SetDirty(this);
     }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        foreach (var difficulty in difficulties)
-        {
-            Gizmos.DrawRay(Vector3.up * difficulty.mapYLevel, Vector3.right * 100);
-        }
-    }
 #endif
 }
