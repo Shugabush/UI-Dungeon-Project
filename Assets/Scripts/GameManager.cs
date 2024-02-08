@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
             if (value <= 0)
             {
                 // TODO: Implement Game Over system
+                GameOverScreen.Trigger();
             }
         }
     }

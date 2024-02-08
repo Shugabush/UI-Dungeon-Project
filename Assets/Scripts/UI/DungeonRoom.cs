@@ -69,8 +69,8 @@ public class DungeonRoom : MonoBehaviour
             // Skip this dungeon if it wasn't completed (aka the player took a different path)
             unlocked = completed;
         }
-        button.interactable = unlocked;
-        button.enabled = !completed;
+        button.enabled = unlocked;
+        button.interactable = !completed;
     }
 
     void OnValidate()

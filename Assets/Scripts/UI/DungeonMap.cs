@@ -76,7 +76,6 @@ public class DungeonMap : MonoBehaviour
     static DungeonMap instance;
 
     public static Canvas Screen => instance.screen;
-    static Canvas[] ChildrenScreens => instance.childrenScreens;
     static DungeonDifficulty[] Difficulties => instance.difficulties;
     DungeonDifficulty currentDifficulty;
     public static DungeonDifficulty CurrentDifficulty
@@ -90,8 +89,6 @@ public class DungeonMap : MonoBehaviour
             instance.currentDifficulty = value;
         }
     }
-
-    public static int DifficultyCount => Difficulties.Length;
 
     void Awake()
     {
@@ -154,10 +151,6 @@ public class DungeonMap : MonoBehaviour
     static void RetreatToSurface()
     {
         Screen.enabled = false;
-        foreach (var screen in ChildrenScreens)
-        {
-            screen.enabled = false;
-        }
     }
 
     public static DungeonDifficulty GetDifficulty(DungeonRoom room)
