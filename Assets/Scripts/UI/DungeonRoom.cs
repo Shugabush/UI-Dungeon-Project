@@ -66,7 +66,7 @@ public class DungeonRoom : MonoBehaviour
     {
         if (currentDifficultyIndex != difficultyIndex)
         {
-            // Skip this dungeon if it wasn't completed
+            // Skip this dungeon if it wasn't completed (aka the player took a different path)
             unlocked = completed;
         }
         button.interactable = unlocked;
@@ -106,27 +106,6 @@ public class DungeonRoom : MonoBehaviour
         }
 #endif
     }
-
-    /*void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        foreach (var dungeonRoom in nextDungeonRooms)
-        {
-            if (dungeonRoom != null)
-            {
-                Gizmos.DrawLine(transform.position, dungeonRoom.transform.position);
-            }
-        }
-
-        Gizmos.color = Color.blue;
-        foreach (var dungeonRoom in dungeonRoomDependencies)
-        {
-            if (dungeonRoom != null)
-            {
-                Gizmos.DrawLine(transform.position, dungeonRoom.transform.position);
-            }
-        }
-    }*/
 
     void CheckForUnlocked()
     {

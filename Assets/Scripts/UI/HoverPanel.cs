@@ -56,7 +56,7 @@ public class HoverPanel : MonoBehaviour
 
     MaskableGraphic[] graphics;
 
-    const float yOffset = 25f;
+    [SerializeField] Vector3 offset = Vector3.zero;
 
     bool justPurchased = false;
 
@@ -133,7 +133,7 @@ public class HoverPanel : MonoBehaviour
     {
         if (selectedSlot != null)
         {
-            Rt.position = selectedSlot.Rt.position + Vector3.up * yOffset;
+            Rt.position = selectedSlot.Rt.position + offset;
             if (selectedSlot.Item != null)
             {
                 if (sellButtonText != null)

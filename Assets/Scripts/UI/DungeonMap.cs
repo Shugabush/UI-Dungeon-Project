@@ -65,6 +65,7 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] Material lineMat;
 
     [SerializeField] Canvas screen;
+    [SerializeField] Canvas[] childrenScreens = new Canvas[0]; 
     [SerializeField] Button retreatButton;
 
     [SerializeField] float lineWidth = 5f;
@@ -75,6 +76,7 @@ public class DungeonMap : MonoBehaviour
     static DungeonMap instance;
 
     public static Canvas Screen => instance.screen;
+    static Canvas[] ChildrenScreens => instance.childrenScreens;
     static DungeonDifficulty[] Difficulties => instance.difficulties;
     DungeonDifficulty currentDifficulty;
     public static DungeonDifficulty CurrentDifficulty
@@ -147,6 +149,10 @@ public class DungeonMap : MonoBehaviour
     static void RetreatToSurface()
     {
         Screen.enabled = false;
+        foreach (var screen in ChildrenScreens)
+        {
+            screen.enabled = false;
+        }
     }
 
     public static DungeonDifficulty GetDifficulty(DungeonRoom room)
