@@ -33,6 +33,25 @@ public class ActiveCanvasManager : MonoBehaviour
         }
     }
 
+    public static void SetCanvasAndChildrenActive(Canvas targetCanvas)
+    {
+        foreach (var canvas in instance.canvases)
+        {
+            if (canvas == targetCanvas)
+            {
+                Canvas[] children = canvas.GetComponentsInChildren<Canvas>();
+                foreach (var child in children)
+                {
+                    child.enabled = true;
+                }
+            }
+            else
+            {
+                canvas.enabled = false;
+            }
+        }
+    }
+
     /// <summary>
     /// If you know the index of the canvas that you want active,
     /// you can use this overload

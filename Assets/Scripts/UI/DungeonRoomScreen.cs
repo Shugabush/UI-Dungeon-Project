@@ -88,7 +88,7 @@ public class DungeonRoomScreen : MonoBehaviour
 
     public static void DisableCombatReport()
     {
-        ActiveCanvasManager.SetCanvasActive(DungeonMap.Screen);
+        ActiveCanvasManager.SetCanvasAndChildrenActive(DungeonMap.Screen);
 
         CombatReport.enabled = false;
         DifficultyAndSuccessText.text = string.Empty;

@@ -132,6 +132,11 @@ public class DungeonMap : MonoBehaviour
 
     void Update()
     {
+        foreach (var child in childrenScreens)
+        {
+            child.enabled = screen.enabled;
+        }
+
         foreach (var roomLine in roomLines)
         {
             if (screen.enabled)
