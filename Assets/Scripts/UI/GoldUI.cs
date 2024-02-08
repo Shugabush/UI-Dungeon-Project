@@ -6,7 +6,7 @@ using TMPro;
 public class GoldUI : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
-    static List<GoldUI> instances = new List<GoldUI>();
+    static GoldUI instance;
 
     void Awake()
     {
@@ -14,20 +14,11 @@ public class GoldUI : MonoBehaviour
         {
             text = GetComponentInChildren<TMP_Text>();
         }
-
-        instances.Add(this);
+        instance = this;
     }
 
-    public static void UpdateInstances(int gold)
+    public static void UpdateText(int gold)
     {
-        foreach (var instance in instances)
-        {
-            instance.text.text = gold.ToString();
-        }
-    }
-
-    void OnDestroy()
-    {
-        instances.Remove(this);
+        instance.text.text = gold.ToString();
     }
 }

@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         set
         {
             instance.gold = value;
-            GoldUI.UpdateInstances(value);
+            GoldUI.UpdateText(value);
         }
     }
     public static int Health
@@ -69,6 +69,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    bool isInvisible;
+    public static bool IsInvisible
+    {
+        get
+        {
+            return instance.isInvisible;
+        }
+        set
+        {
+            instance.isInvisible = value;
+            if (value)
+            {
+                // Trigger some UI displaying the invisibility
+            }
+        }
+    }
+
+    public static BarMeter HealthMeter => instance.healthMeter;
+    public static BarMeter ArmorStats => instance.armorStats;
+    public static BarMeter WeaponStats => instance.weaponStats;
+
     void Awake()
     {
         instance = this;
@@ -78,7 +99,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         healthMeter.MaxValue = maxHealth;
-        GoldUI.UpdateInstances(gold);
+        GoldUI.UpdateText(gold);
         Health = maxHealth;
     }
 

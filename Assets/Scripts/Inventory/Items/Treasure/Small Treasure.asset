@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9c56608e37db724c9f5dc1b543889dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 13012456af0288b489a203c3a64e7f42, type: 3}
   m_Name: Small Treasure
   m_EditorClassIdentifier: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: 254ab5f4e93b39d4eb47e1ccc0bc2bbf,

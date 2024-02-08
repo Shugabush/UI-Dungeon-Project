@@ -140,10 +140,7 @@ public class HoverPanel : MonoBehaviour
                 {
                     sellButtonText.text = $"Sell ({selectedSlot.Item.GoldValue} Gold)";
                 }
-                if (useButton != null)
-                {
-                    useButton.gameObject.SetActive(selectedSlot.Item.Useable());
-                }
+                EnableOrDisableUseButton();
             }
         }
         folder.SetActive(true);
@@ -211,7 +208,12 @@ public class HoverPanel : MonoBehaviour
 
     void Use(InventorySlot slot)
     {
-        Debug.Log("Using!");
+        if (slot.Item != null)
+        {
+            slot.Item.OnUsed();
+        }
+        slot.RemoveItem();
+        EnableOrDisableUseButton();
     }
     
     // Give a one frame cooldown,
@@ -232,6 +234,14 @@ public class HoverPanel : MonoBehaviour
             bool interactable = GameManager.Gold >= selectedItem.GoldValue;
             purchaseButton.interactable = interactable;
             purchaseButtonCanvasGroup.blocksRaycasts = interactable;
+        }
+    }
+
+    void EnableOrDisableUseButton()
+    {
+        if (useButton != null)
+        {
+            useButton.gameObject.SetActive(selectedSlot.Item != null && selectedSlot.Item.Useable());
         }
     }
 

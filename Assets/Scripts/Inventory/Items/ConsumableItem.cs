@@ -36,4 +36,43 @@ public class ConsumableItem : ItemObject
                 return base.GetDescription();
         }
     }
+
+    public override bool Useable()
+    {
+        switch (ItemType)
+        {
+            case Type.Health:
+                return !GameManager.HealthMeter.IsMaxedOut;
+            case Type.Strength:
+                return !GameManager.WeaponStats.IsMaxedOut;
+            case Type.Armor:
+                return !GameManager.ArmorStats.IsMaxedOut;
+            case Type.Invisibility:
+                return !GameManager.IsInvisible;
+            default:
+                return base.Useable();
+        }
+    }
+
+    public override void OnUsed()
+    {
+        switch (ItemType)
+        {
+            case Type.Health:
+                GameManager.Health += (int)StatsValue;
+                break;
+            case Type.Strength:
+                GameManager.ExtraFightSuccess += (int)StatsValue;
+                break;
+            case Type.Armor:
+                GameManager.Armor += (int)StatsValue;
+                break;
+            case Type.Invisibility:
+                GameManager.IsInvisible = true;
+                break;
+            default:
+                base.OnUsed();
+                break;
+        }
+    }
 }

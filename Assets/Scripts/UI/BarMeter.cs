@@ -9,6 +9,7 @@ public class BarMeter : MonoBehaviour
     // Assign these in the inspector
     [SerializeField] TMP_Text text;
     [SerializeField] int maxValue = 3;
+    int value;
 
     public int MaxValue
     {
@@ -48,6 +49,7 @@ public class BarMeter : MonoBehaviour
             }
         }
     }
+    public bool IsMaxedOut => value >= maxValue;
 
     List<Image> icons;
 
@@ -68,6 +70,7 @@ public class BarMeter : MonoBehaviour
 
     public void UpdateUI(int newValue)
     {
+        value = newValue;
         for (int i = 0; i < maxValue; i++)
         {
             icons[i].enabled = newValue > i;

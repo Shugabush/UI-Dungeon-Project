@@ -47,6 +47,15 @@ public class InventorySlot : BaseSlot
 
     public void RemoveItem(bool sell = false)
     {
+        if (this == PlayerStatsScreen.WeaponSlot)
+        {
+            PlayerStatsScreen.RemoveWeapon();
+        }
+        else if (this == PlayerStatsScreen.ArmorSlot)
+        {
+            PlayerStatsScreen.RemoveArmor();
+        }
+
         if (!Empty)
         {
             if (sell)
@@ -58,15 +67,6 @@ public class InventorySlot : BaseSlot
         else
         {
             Count = 0;
-        }
-
-        if (this == PlayerStatsScreen.WeaponSlot)
-        {
-            PlayerStatsScreen.RemoveWeapon();
-        }
-        else if (this == PlayerStatsScreen.ArmorSlot)
-        {
-            PlayerStatsScreen.RemoveArmor();
         }
     }
 }

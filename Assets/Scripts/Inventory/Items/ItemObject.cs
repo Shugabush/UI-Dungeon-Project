@@ -21,8 +21,20 @@ public class ItemObject : ScriptableObject
         return description;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Whether or not this item is useable</returns>
     public virtual bool Useable()
     {
         return true;
+    }
+
+    /// <summary>
+    /// Called when this item gets used/consumed
+    /// </summary>
+    public virtual void OnUsed()
+    {
+
     }
 }
