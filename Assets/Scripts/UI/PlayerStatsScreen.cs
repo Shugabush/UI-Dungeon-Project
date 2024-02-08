@@ -8,8 +8,8 @@ public class PlayerStatsScreen : MonoBehaviour
     // Assign these in the inspector
     [SerializeField] Image armorIcon;
     [SerializeField] Image weaponIcon;
-    [SerializeField] BaseSlot armorSlot;
-    [SerializeField] BaseSlot weaponSlot;
+    [SerializeField] InventorySlot armorSlot;
+    [SerializeField] InventorySlot weaponSlot;
     [SerializeField] InventorySlot[] slots = new InventorySlot[0];
     [SerializeField] InventoryLayout inventory;
 
@@ -18,8 +18,8 @@ public class PlayerStatsScreen : MonoBehaviour
 
     public static Image ArmorIcon => instance.armorIcon;
     public static Image WeaponIcon => instance.weaponIcon;
-    public static BaseSlot ArmorSlot => instance.armorSlot;
-    public static BaseSlot WeaponSlot => instance.weaponSlot;
+    public static InventorySlot ArmorSlot => instance.armorSlot;
+    public static InventorySlot WeaponSlot => instance.weaponSlot;
     public static InventoryLayout Inventory => instance.inventory;
 
     static Sprite DefaultArmorSprite => instance.defaultArmorSprite;
@@ -37,12 +37,12 @@ public class PlayerStatsScreen : MonoBehaviour
         if (WeaponSlot.Item != null)
         {
             // Add the existing weapon item back to the storage
-            StorageScreen.Unequip(WeaponSlot as InventorySlot);
+            StorageScreen.Unequip(WeaponSlot);
         }
 
         WeaponIcon.sprite = weapon.SpriteForPlayer;
         WeaponIcon.enabled = true;
-        WeaponSlot.Item = weapon;
+        WeaponSlot.AddItem(weapon);
         GameManager.ExtraFightSuccess = ((WeaponItem)WeaponSlot.Item).Strength;
     }
 
@@ -51,12 +51,12 @@ public class PlayerStatsScreen : MonoBehaviour
         if (ArmorSlot.Item != null)
         {
             // Add the existing armor item back to the storage
-            StorageScreen.Unequip(ArmorSlot as InventorySlot);
+            StorageScreen.Unequip(ArmorSlot);
         }
 
         ArmorIcon.sprite = armor.SpriteForPlayer;
         ArmorIcon.enabled = true;
-        ArmorSlot.Item = armor;
+        ArmorSlot.AddItem(armor);
         GameManager.Armor = ((ArmorItem)ArmorSlot.Item).ArmorValue;
     }
 

@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 16.8}
-  m_SizeDelta: {x: 85, y: 25}
+  m_SizeDelta: {x: 84, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6110894964220485495
 CanvasRenderer:
@@ -272,6 +272,8 @@ MonoBehaviour:
   purchaseButton: {fileID: 6107858672684081221}
   equipButton: {fileID: 0}
   unequipButton: {fileID: 0}
+  sellButton: {fileID: 0}
+  sellButtonText: {fileID: 0}
   folder: {fileID: 4320166023931426288}
   selectablesToKeepThisEnabled: []
   selectedSlot: {fileID: 0}

@@ -606,7 +606,7 @@ PrefabInstance:
     - target: {fileID: 6052321004592308720, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
       propertyPath: m_Name
-      value: HoverPanelSellable
+      value: HoverPanelItem
       objectReference: {fileID: 0}
     - target: {fileID: 8642910214026979604, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
