@@ -47,13 +47,14 @@ public class DungeonMap : MonoBehaviour
         }
     }
 
-    // Assign in the inspector
+    // Assign these in the inspector
     [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
+    [SerializeField] Canvas mapCanvas;
 
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> lines;
     [SerializeField] Material lineMat;
-    [SerializeField] Canvas mapCanvas;
+    [SerializeField] Button retreatButton;
 
     const float lineWidth = 0.25f;
 
@@ -95,6 +96,15 @@ public class DungeonMap : MonoBehaviour
             }
         }
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Get Room Children")]
+    void GetRoomChildren()
+    {
+        rooms = GetComponentsInChildren<DungeonRoom>();
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+#endif
 
     void Update()
     {

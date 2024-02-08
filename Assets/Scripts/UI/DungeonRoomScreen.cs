@@ -12,8 +12,8 @@ public class DungeonRoomScreen : MonoBehaviour
     [SerializeField] Image combatReport;
     [SerializeField] TMP_Text difficultyAndSuccessText;
     [SerializeField] TMP_Text successPercentText;
-    [SerializeField] Button retreatButton;
-    [SerializeField] TMP_Text retreatButtonText;
+    [SerializeField] Button continueButton;
+    [SerializeField] TMP_Text continueButtonText;
     [SerializeField] LootLayout loot;
 
     static DungeonDifficulty[] Difficulties => instance.difficulties;
@@ -21,8 +21,8 @@ public class DungeonRoomScreen : MonoBehaviour
     static Image CombatReport => instance.combatReport;
     static TMP_Text DifficultyAndSuccessText => instance.difficultyAndSuccessText;
     static TMP_Text SuccessPercentText => instance.successPercentText;
-    static Button RetreatButton => instance.retreatButton;
-    static TMP_Text RetreatButtonText => instance.retreatButtonText;
+    static Button ContinueButton => instance.continueButton;
+    static TMP_Text ContinueButtonText => instance.continueButtonText;
     static LootLayout Loot => instance.loot;
 
     static DungeonRoomScreen instance;
@@ -43,7 +43,7 @@ public class DungeonRoomScreen : MonoBehaviour
     void Awake()
     {
         instance = this;
-        retreatButton.onClick.AddListener(DisableCombatReport);
+        continueButton.onClick.AddListener(DisableCombatReport);
     }
 
     public static void EnableCombatReport(DungeonRoom room)
@@ -82,8 +82,8 @@ public class DungeonRoomScreen : MonoBehaviour
 
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
-        RetreatButton.image.enabled = true;
-        RetreatButtonText.text = "Retreat to the Surface";
+        ContinueButton.image.enabled = true;
+        ContinueButtonText.text = "Continue";
 
         StorageScreen.Instance.gameObject.SetActive(false);
         StoreScreen.Instance.gameObject.SetActive(false);
@@ -96,8 +96,8 @@ public class DungeonRoomScreen : MonoBehaviour
         CombatReport.enabled = false;
         DifficultyAndSuccessText.text = string.Empty;
         SuccessPercentText.text = string.Empty;
-        RetreatButton.image.enabled = false;
-        RetreatButtonText.text = string.Empty;
+        ContinueButton.image.enabled = false;
+        ContinueButtonText.text = string.Empty;
 
         StorageScreen.Instance.gameObject.SetActive(true);
         StoreScreen.Instance.gameObject.SetActive(true);
