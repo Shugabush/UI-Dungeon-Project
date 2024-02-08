@@ -203,8 +203,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sell
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 258fe752386573a4aacad1109a50d0a0, type: 2}
+  m_sharedMaterial: {fileID: 2940268521499536856, guid: 258fe752386573a4aacad1109a50d0a0,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -277,6 +278,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 814974024658180100, guid: 1ce3f1853268d974e8ebd06880a2821a,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2843193570791116084, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
       propertyPath: inventory
@@ -315,6 +321,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4642681098205830980, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642681098205830980, guid: 1ce3f1853268d974e8ebd06880a2821a,
+        type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
@@ -327,6 +338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642681098205830980, guid: 1ce3f1853268d974e8ebd06880a2821a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 62.49999
       objectReference: {fileID: 0}
     - target: {fileID: 4642681098205830980, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
@@ -346,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 6052321004592308720, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
       propertyPath: m_Name
-      value: InventoryHoverPanel
+      value: HoverPanel
       objectReference: {fileID: 0}
     - target: {fileID: 8642910214026979604, guid: 1ce3f1853268d974e8ebd06880a2821a,
         type: 3}
