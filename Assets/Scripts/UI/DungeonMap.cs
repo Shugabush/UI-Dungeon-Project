@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DungeonMap : MonoBehaviour
 {
+    [System.Serializable]
+    private class DungeonRoomCollection
+    {
+        [SerializeReference] public List<DungeonRoom> rooms = new List<DungeonRoom>();
+
+        public DungeonRoomCollection()
+        {
+            rooms = new List<DungeonRoom>();
+        }
+    }
+
     private class RoomLine
     {
         public LineRenderer line;
@@ -89,6 +101,9 @@ public class DungeonMap : MonoBehaviour
             instance.currentDifficulty = value;
         }
     }
+
+    // Each collection contains dungeons that are of a certain difficulty level (determined by the index)
+    [SerializeField] DungeonRoomCollection[] dungeonRoomCollections = new DungeonRoomCollection[0];
 
     void Awake()
     {
@@ -185,6 +200,28 @@ public class DungeonMap : MonoBehaviour
     void GetRoomChildren()
     {
         rooms = GetComponentsInChildren<DungeonRoom>();
+        UnityEditor.EditorUtility.SetDirty(this);
+    }
+
+    [ContextMenu("Get Dungeon Collections")]
+    void GetDungeonCollections()
+    {
+        dungeonRoomCollections = new DungeonRoomCollection[difficulties.Length];
+
+        // Get each room's difficulty and add it to the corresponding index in dungeon room collections
+        foreach (var room in rooms)
+        {
+            DungeonRoomCollection targetCollection = dungeonRoomCollections[room.DifficultyIndex];
+
+            if (targetCollection == null)
+            {
+                targetCollection = new DungeonRoomCollection();
+                dungeonRoomCollections[room.DifficultyIndex] = targetCollection;
+            }
+
+            targetCollection.rooms.Add(room);
+        }
+
         UnityEditor.EditorUtility.SetDirty(this);
     }
 #endif

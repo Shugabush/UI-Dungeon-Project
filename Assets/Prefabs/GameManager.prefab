@@ -654,7 +654,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931596609695339624}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -801,6 +801,39 @@ MonoBehaviour:
   retreatButton: {fileID: 4151464342595669473}
   lineWidth: 5
   lineOffset: 0
+  dungeonRoomCollections:
+  - rooms:
+    - {fileID: 876048530358708414}
+    - {fileID: 7888707166443260233}
+    - {fileID: 2027150703505668145}
+  - rooms:
+    - {fileID: 4655520529166285144}
+    - {fileID: 8982040398105007570}
+    - {fileID: 5878850917557416480}
+  - rooms:
+    - {fileID: 5126496525778330532}
+    - {fileID: 5917587641057900588}
+  - rooms:
+    - {fileID: 5466072268076490949}
+    - {fileID: 2707050065800965684}
+    - {fileID: 6842361122533185135}
+  - rooms:
+    - {fileID: 1452512140320752790}
+  - rooms:
+    - {fileID: 3005638071202083503}
+    - {fileID: 1232964263249551063}
+  - rooms:
+    - {fileID: 6341574256059859384}
+    - {fileID: 1487568889978140841}
+  - rooms:
+    - {fileID: 990800936050070739}
+    - {fileID: 944219906176172513}
+  - rooms:
+    - {fileID: 5845715647890575183}
+    - {fileID: 315950090080607502}
+    - {fileID: 5681832853090523783}
+  - rooms:
+    - {fileID: 117524913718633145}
 --- !u!1 &937022456197801634
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +955,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6322702006382378823}
   m_HandleRect: {fileID: 3364696388310617855}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.037670467
+  m_Size: 0.2673067
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
