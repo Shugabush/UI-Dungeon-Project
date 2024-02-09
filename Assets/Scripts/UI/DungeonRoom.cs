@@ -73,6 +73,27 @@ public class DungeonRoom : MonoBehaviour
         button.interactable = !completed;
     }
 
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        foreach (var room in nextDungeonRooms)
+        {
+            if (room != null)
+            {
+                Gizmos.DrawLine(transform.position, room.transform.position);
+            }
+        }
+
+        Gizmos.color = Color.blue;
+        foreach (var room in dungeonRoomDependencies)
+        {
+            if (room != null)
+            {
+                Gizmos.DrawLine(transform.position, room.transform.position);
+            }
+        }
+    }
+
     void OnValidate()
     {
         bool anythingModified = false;

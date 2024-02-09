@@ -61,7 +61,7 @@ public class BarMeter : MonoBehaviour
         for (int i = 0; i < maxValue; i++)
         {
             Image newIcon = new GameObject("Icon").AddComponent<Image>();
-            newIcon.transform.parent = transform;
+            newIcon.transform.SetParent(transform);
 
             // If we have a grid layout, it should adjust, but the z coordinate might be wrong,
             // so we want to set that to 0
