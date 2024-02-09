@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DungeonRoomScreen : MonoBehaviour
@@ -13,6 +14,9 @@ public class DungeonRoomScreen : MonoBehaviour
     [SerializeField] Button continueButton;
     [SerializeField] TMP_Text continueButtonText;
     [SerializeField] LootLayout loot;
+
+    public static UnityEvent onDungeonEntered = new UnityEvent();
+    public static UnityEvent onDungeonExited = new UnityEvent();
 
     public static Canvas ScreenCanvas => instance.screenCanvas;
     static Image CombatReport => instance.combatReport;
@@ -30,8 +34,16 @@ public class DungeonRoomScreen : MonoBehaviour
         continueButton.onClick.AddListener(DisableCombatReport);
     }
 
+    void OnDestroy()
+    {
+        onDungeonEntered.RemoveAllListeners();
+        onDungeonExited.RemoveAllListeners();
+    }
+
     public static void EnableCombatReport(DungeonRoom room)
     {
+        onDungeonEntered.Invoke();
+
         ActiveCanvasManager.SetCanvasActive(ScreenCanvas);
 
         DungeonMap.SetCurrentDifficulty(room);
@@ -74,7 +86,10 @@ public class DungeonRoomScreen : MonoBehaviour
 
         if (!GameManager.IsInvisible)
         {
-            GameManager.Health -= Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost);
+            int targetDamage = Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost) - GameManager.Armor;
+            targetDamage = Mathf.Clamp(targetDamage, 1, targetDamage);
+
+            GameManager.Health -= targetDamage;
         }
 
         DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex}\nSuccess Chance: {successChanceString}";
@@ -82,8 +97,10 @@ public class DungeonRoomScreen : MonoBehaviour
         ContinueButton.image.enabled = true;
         ContinueButtonText.text = "Continue";
 
-        // Invisibility only lasts for one dungeon room
-        GameManager.IsInvisible = false;
+        onDungeonExited.Invoke();
+
+        onDungeonEntered.RemoveAllListeners();
+        onDungeonExited.RemoveAllListeners();
     }
 
     public static void DisableCombatReport()

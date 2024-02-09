@@ -12,10 +12,10 @@ public class StartScreen : MonoBehaviour
     [SerializeField] MaskableGraphic[] maskableGraphicsToAffect = new MaskableGraphic[0];
 
     [SerializeField] Canvas screen;
+    [SerializeField] Button enterDungeonButton;
 
     static GameObject[] ObjectsToAffect => instance.objectsToAffect;
     static MaskableGraphic[] MaskableGraphicsToAffect => instance.maskableGraphicsToAffect;
-    static Canvas Screen => instance.screen;
 
     static StartScreen instance;
 

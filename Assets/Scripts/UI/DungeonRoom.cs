@@ -2,13 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DungeonRoom : MonoBehaviour
+public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] int difficultyIndex = 0;
     [SerializeField] Button button;
-    [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text difficultyText;
+
+    // Sprite to use when this dungeon room isn't unlocked
+    [SerializeField] Sprite blankButtonSprite;
+
+    // Sprite to use when this dungeon room is unlocked
+    [SerializeField] Sprite mainButtonSprite;
 
     [field: SerializeField]
     public RectTransform Rt { get; private set; }
@@ -67,7 +74,16 @@ public class DungeonRoom : MonoBehaviour
 
         button.onClick.AddListener(() => DungeonRoomScreen.EnableCombatReport(this));
 
-        text.text = difficultyIndex.ToString();
+        if (difficultyIndex == 0)
+        {
+            difficultyText.text = string.Empty;
+        }
+        else
+        {
+            difficultyText.text = difficultyIndex.ToString();
+        }
+
+        difficultyText.enabled = false;
     }
 
     void Update()
@@ -77,8 +93,18 @@ public class DungeonRoom : MonoBehaviour
             // Skip this dungeon if it wasn't completed (aka the player took a different path)
             unlocked = completed;
         }
-        button.enabled = unlocked;
         button.interactable = !completed;
+
+        if (unlocked)
+        {
+            button.enabled = true;
+            button.image.sprite = mainButtonSprite;
+        }
+        else
+        {
+            button.enabled = false;
+            button.image.sprite = blankButtonSprite;
+        }
     }
 
 #if UNITY_EDITOR
@@ -129,10 +155,27 @@ public class DungeonRoom : MonoBehaviour
             }
         }
 
-        if (text != null && text.text != difficultyIndex.ToString())
+        if (button != null && button.image.sprite != mainButtonSprite)
         {
-            text.text = difficultyIndex.ToString();
+            button.image.sprite = mainButtonSprite;
             anythingModified = true;
+        }
+
+        if (difficultyText != null)
+        {
+            if (difficultyIndex == 0)
+            {
+                if (difficultyText.text != string.Empty)
+                {
+                    difficultyText.text = string.Empty;
+                    anythingModified = true;
+                }
+            }
+            else if (difficultyText.text != difficultyIndex.ToString())
+            {
+                difficultyText.text = difficultyIndex.ToString();
+                anythingModified = true;
+            }
         }
 
         if (anythingModified)
@@ -164,5 +207,19 @@ public class DungeonRoom : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!button.enabled || !button.interactable) return;
+
+        difficultyText.enabled = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!button.enabled || !button.interactable) return;
+
+        difficultyText.enabled = false;
     }
 }

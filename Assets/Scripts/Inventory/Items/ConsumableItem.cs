@@ -63,12 +63,15 @@ public class ConsumableItem : ItemObject
                 break;
             case Type.Strength:
                 GameManager.ExtraFightSuccess += (int)StatsValue;
+                DungeonRoomScreen.onDungeonExited.AddListener(() => GameManager.ExtraFightSuccess -= (int)StatsValue);
                 break;
             case Type.Armor:
                 GameManager.Armor += (int)StatsValue;
+                DungeonRoomScreen.onDungeonExited.AddListener(() => GameManager.Armor -= (int)StatsValue);
                 break;
             case Type.Invisibility:
                 GameManager.IsInvisible = true;
+                DungeonRoomScreen.onDungeonExited.AddListener(() => GameManager.IsInvisible = false);
                 break;
             default:
                 base.OnUsed();

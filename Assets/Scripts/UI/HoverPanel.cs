@@ -219,6 +219,11 @@ public class HoverPanel : MonoBehaviour
         }
         slot.RemoveItem();
         EnableOrDisableUseButton();
+
+        if (slot.Item == null)
+        {
+            DisableUI();
+        }
     }
     
     // Give a one frame cooldown,
@@ -246,7 +251,7 @@ public class HoverPanel : MonoBehaviour
     {
         if (useButton != null)
         {
-            useButton.gameObject.SetActive(selectedSlot.Item != null && selectedSlot.Item.Useable());
+            useButton.gameObject.SetActive(selectedSlot != null && selectedSlot.Item != null && selectedSlot.Item.Useable());
         }
     }
 
@@ -298,6 +303,11 @@ public class HoverPanel : MonoBehaviour
         }
 
         if (sellButton != null && selectedGameObject == sellButton.gameObject)
+        {
+            return true;
+        }
+
+        if (useButton != null && selectedGameObject == useButton.gameObject)
         {
             return true;
         }

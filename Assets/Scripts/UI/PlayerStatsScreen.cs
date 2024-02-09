@@ -157,6 +157,6 @@ public class PlayerStatsScreen : MonoBehaviour
             return 0;
         }
 
-        return (int)((WeaponSlot.Item as WeaponItem).ExtraFightSuccess * 100);
+        return (WeaponSlot.Item as WeaponItem).ExtraFightSuccess;
     }
 }

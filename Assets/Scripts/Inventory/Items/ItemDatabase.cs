@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
-    [SerializeField] ItemObject[] allItems = new ItemObject[0];
+    [SerializeField] ItemObject[] possibleItems = new ItemObject[0];
 
-    static ItemObject[] AllItems => instance.allItems;
+    static ItemObject[] PossibleItems => instance.possibleItems;
 
     static ItemDatabase instance;
 
@@ -18,14 +18,14 @@ public class ItemDatabase : MonoBehaviour
     public static ItemObject GetRandomItem()
     {
         float totalDropChance = 0f;
-        foreach (var item in AllItems)
+        foreach (var item in PossibleItems)
         {
             totalDropChance += item.DropChance;
         }
 
         float dropRng = Random.Range(0f, totalDropChance);
 
-        foreach (var item in AllItems)
+        foreach (var item in PossibleItems)
         {
             if (dropRng <= item.DropChance)
             {

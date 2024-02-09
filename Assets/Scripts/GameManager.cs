@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
             ArmorStats.UpdateUI(value);
         }
     }
+
     public static int ExtraFightSuccess
     {
         get
