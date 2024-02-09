@@ -62,6 +62,19 @@ public class MovableAnimation : MonoBehaviour
         }
     }
 
+    public void InstantUnmove()
+    {
+        float originalDuration = duration;
+        duration = 0;
+
+        if (direction == 1)
+        {
+            StartCoroutine(Unmove());
+        }
+
+        duration = originalDuration;
+    }
+
     public IEnumerator Move()
     {
         StopCoroutine(Unmove());

@@ -938,8 +938,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6322702006382378823}
   m_HandleRect: {fileID: 3364696388310617855}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.16246203
+  m_Size: 0.2838096
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1361,6 +1361,18 @@ MonoBehaviour:
       - m_Target: {fileID: 9188775683874897100}
         m_TargetAssemblyTypeName: StartScreen, Assembly-CSharp
         m_MethodName: Enable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6711940480149599924}
+        m_TargetAssemblyTypeName: MovableAnimation, Assembly-CSharp
+        m_MethodName: InstantUnmove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
