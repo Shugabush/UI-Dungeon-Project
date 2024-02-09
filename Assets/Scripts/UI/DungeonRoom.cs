@@ -20,6 +20,9 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [field: SerializeField]
     public RectTransform Rt { get; private set; }
 
+    [field: SerializeField]
+    public bool IsBossRoom { get; private set; }
+
     static int currentDifficultyIndex = 0;
     public static int CurrentDifficultyIndex => currentDifficultyIndex;
 

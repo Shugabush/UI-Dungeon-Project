@@ -55,8 +55,7 @@ public class GameManager : MonoBehaviour
 
             if (value <= 0)
             {
-                GameOverScreen.Trigger();
-                LowHealthIndicator.Disable();
+                GameOverScreen.Lose();
             }
         }
     }

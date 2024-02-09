@@ -4090,6 +4090,61 @@ MonoBehaviour:
   screen: {fileID: 321674816809394810}
   restartButton: {fileID: 3618303251068183808}
   quitButton: {fileID: 2991866634093938472}
+  onWin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3182639548216903844}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 21300000, guid: 4596b28a2881bb8448232e622859676e,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2628326009455275011}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1636375834214686956}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8488022407798907037}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: You Win!
+          m_BoolArgument: 0
+        m_CallState: 2
+  onLose:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6402455932872691342
 GameObject:
   m_ObjectHideFlags: 0
@@ -10248,6 +10303,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 991e622c20c96104aad0d30c758c967b,
         type: 3}
+    - target: {fileID: 2571997272631263735, guid: 5a2145415adfc2843b1fd3f708183d2d,
+        type: 3}
+      propertyPath: <IsBossRoom>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2571997272631263735, guid: 5a2145415adfc2843b1fd3f708183d2d,
         type: 3}
       propertyPath: dungeonRoomDependencies.Array.size

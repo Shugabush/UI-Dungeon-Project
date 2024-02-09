@@ -76,13 +76,32 @@ public class DungeonRoomScreen : MonoBehaviour
         {
             // The player succeeded
             successString += "\nSUCCESS!";
-            Loot.gameObject.SetActive(true);
+            
+            if (room.IsBossRoom)
+            {
+                room.Completed = true;
+            }
+            else
+            {
+                Loot.gameObject.SetActive(true);
 
-            Loot.GenerateLoot();
+                Loot.GenerateLoot();
+            }
         }
 
-        // The player completes the room regardless of whether they succeeded or not
-        room.Completed = true;
+        if (room.IsBossRoom)
+        {
+            if (room.Completed)
+            {
+                ContinueButton.onClick.AddListener(GameOverScreen.Win);
+            }
+        }
+        else
+        {
+            // The player completes the room regardless of whether they succeeded or not
+            // (unless the room is the boss room)
+            room.Completed = true;
+        }
 
         if (!GameManager.IsInvisible)
         {

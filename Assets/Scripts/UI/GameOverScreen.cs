@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class GameOverScreen : MonoBehaviour
 
     static GameOverScreen instance;
 
+    [SerializeField] UnityEvent onWin = new UnityEvent();
+    [SerializeField] UnityEvent onLose = new UnityEvent();
+
     void Awake()
     {
         instance = this;
@@ -23,10 +27,22 @@ public class GameOverScreen : MonoBehaviour
     }
 
     /// <summary>
-    /// Trigger game over
+    /// Trigger win
     /// </summary>
-    public static void Trigger()
+    public static void Win()
     {
+        instance.onWin?.Invoke();
         ActiveCanvasManager.SetCanvasActive(Screen);
+        LowHealthIndicator.Disable();
+    }
+
+    /// <summary>
+    /// Trigger lose
+    /// </summary>
+    public static void Lose()
+    {
+        instance.onLose?.Invoke();
+        ActiveCanvasManager.SetCanvasActive(Screen);
+        LowHealthIndicator.Disable();
     }
 }
