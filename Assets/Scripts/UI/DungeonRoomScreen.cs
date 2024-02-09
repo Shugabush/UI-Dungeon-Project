@@ -77,7 +77,7 @@ public class DungeonRoomScreen : MonoBehaviour
             GameManager.Health -= Random.Range(DungeonMap.CurrentDifficulty.minHealthLost, DungeonMap.CurrentDifficulty.maxHealthLost);
         }
 
-        DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex + 1}\nSuccess Chance: {successChanceString}";
+        DifficultyAndSuccessText.text = $"Difficulty: {room.DifficultyIndex}\nSuccess Chance: {successChanceString}";
         SuccessPercentText.text = successString;
         ContinueButton.image.enabled = true;
         ContinueButtonText.text = "Continue";

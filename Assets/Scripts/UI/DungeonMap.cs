@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class DungeonMap : MonoBehaviour
 {
     [System.Serializable]
-    private class DungeonRoomCollection
+    private class RoomCollection
     {
         [SerializeReference] public List<DungeonRoom> rooms = new List<DungeonRoom>();
 
-        public DungeonRoomCollection()
+        public RoomCollection()
         {
             rooms = new List<DungeonRoom>();
         }
@@ -93,6 +93,7 @@ public class DungeonMap : MonoBehaviour
 
     [SerializeField] float lineWidth = 5f;
     [SerializeField] float lineOffset = 1f;
+    [SerializeField] float xTilingMultiplier = 0.5f;
 
     static float LineOffset => instance.lineOffset;
 
@@ -112,9 +113,10 @@ public class DungeonMap : MonoBehaviour
             instance.currentDifficulty = value;
         }
     }
+    public static int DifficultyCount => Difficulties.Length;
 
     // Each collection contains dungeons that are of a certain difficulty level (determined by the index)
-    [SerializeField] DungeonRoomCollection[] roomCollections = new DungeonRoomCollection[0];
+    [SerializeField] RoomCollection[] roomCollections = new RoomCollection[0];
 
     void Awake()
     {
@@ -143,6 +145,9 @@ public class DungeonMap : MonoBehaviour
                         newLine.transform.SetParent(transform);
                         newLine.transform.localPosition = Vector3.zero;
                         newLine.positionCount = 2;
+
+                        newLine.textureMode = LineTextureMode.Tile;
+                        newLine.material.mainTextureScale = new Vector2(1f / (lineWidth * xTilingMultiplier), 1f);
 
                         RoomLine roomLine = new RoomLine(newLine, transform as RectTransform, dependency, room);
 
@@ -191,6 +196,11 @@ public class DungeonMap : MonoBehaviour
 
     public static DungeonDifficulty GetDifficulty(DungeonRoom room)
     {
+        if (!room.DifficultyIndexIsValid)
+        {
+            return null;
+        }
+
         return Difficulties[room.DifficultyIndex];
     }
     public static void SetCurrentDifficulty(DungeonRoom room)
@@ -227,16 +237,16 @@ public class DungeonMap : MonoBehaviour
     [ContextMenu("Get Dungeon Collections")]
     void GetDungeonCollections()
     {
-        roomCollections = new DungeonRoomCollection[difficulties.Length];
+        roomCollections = new RoomCollection[difficulties.Length];
 
         // Get each room's difficulty and add it to the corresponding index in dungeon room collections
         foreach (var room in rooms)
         {
-            DungeonRoomCollection targetCollection = roomCollections[room.DifficultyIndex];
+            RoomCollection targetCollection = roomCollections[room.DifficultyIndex];
 
             if (targetCollection == null)
             {
-                targetCollection = new DungeonRoomCollection();
+                targetCollection = new RoomCollection();
                 roomCollections[room.DifficultyIndex] = targetCollection;
             }
 

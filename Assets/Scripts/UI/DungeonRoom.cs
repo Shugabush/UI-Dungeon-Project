@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +8,14 @@ public class DungeonRoom : MonoBehaviour
 {
     [SerializeField] int difficultyIndex = 0;
     [SerializeField] Button button;
+    [SerializeField] TMP_Text text;
 
     [field: SerializeField]
     public RectTransform Rt { get; private set; }
 
     static int currentDifficultyIndex = 0;
 
+    public bool DifficultyIndexIsValid => DifficultyIndex >= 0 && DifficultyIndex < DungeonMap.DifficultyCount;
     public int DifficultyIndex => difficultyIndex;
 
     // Dungeon rooms that will be unlocked after this one is completed
@@ -55,7 +58,7 @@ public class DungeonRoom : MonoBehaviour
 
     void Awake()
     {
-        currentDifficultyIndex = 0;
+        currentDifficultyIndex = 1;
 
         // Dungeon complete requirement cannot be more than the number of dungeon dependencies
         minDungeonCompleteRequirement = Mathf.Min(minDungeonCompleteRequirement, dungeonRoomDependencies.Count);
@@ -63,6 +66,8 @@ public class DungeonRoom : MonoBehaviour
         CheckForUnlocked();
 
         button.onClick.AddListener(() => DungeonRoomScreen.EnableCombatReport(this));
+
+        text.text = difficultyIndex.ToString();
     }
 
     void Update()
@@ -77,12 +82,6 @@ public class DungeonRoom : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    void OnDrawGizmos()
-    {
-        UnityEditor.Handles.color = Color.black;
-        UnityEditor.Handles.Label(transform.position, (difficultyIndex + 1).ToString());
-    }
-
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -128,6 +127,12 @@ public class DungeonRoom : MonoBehaviour
                 anythingModified = true;
                 i--;
             }
+        }
+
+        if (text != null && text.text != difficultyIndex.ToString())
+        {
+            text.text = difficultyIndex.ToString();
+            anythingModified = true;
         }
 
         if (anythingModified)
