@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -159,14 +160,30 @@ public class DungeonMap : MonoBehaviour
             }
         }
 
-        foreach (var roomCollection in roomCollections)
+        for (int i = 0; i < roomCollections.Length; i++)
         {
+            var roomCollection = roomCollections[i];
+
             Image difficultyLine = Instantiate(difficultyLinePrefab, difficultyLineParent);
 
             Vector3 linePos = difficultyLine.rectTransform.localPosition;
             linePos.y = roomCollection.GetAverageYPosition();
 
             difficultyLine.rectTransform.localPosition = linePos;
+
+            TMP_Text difficultyLineText = difficultyLine.GetComponentInChildren<TMP_Text>();
+            if (i == 0)
+            {
+                difficultyLineText.text = "Entrance";
+            }
+            else if (i == roomCollections.Length - 1)
+            {
+                difficultyLineText.text = "Boss";
+            }
+            else
+            {
+                difficultyLineText.text = "Floor " + i.ToString();
+            }
 
             difficultyLines.Add(difficultyLine);
         }
@@ -192,7 +209,8 @@ public class DungeonMap : MonoBehaviour
             }
         }
 
-        GameManager.PlayerIcon.position = difficultyLines[DungeonRoom.CurrentDifficultyIndex].rectTransform.position;
+        RectTransform difficultyRt = difficultyLines[DungeonRoom.CurrentDifficultyIndex - 1].rectTransform;
+        GameManager.PlayerIcon.position = difficultyRt.position;
     }
 
     static void RetreatToSurface()
