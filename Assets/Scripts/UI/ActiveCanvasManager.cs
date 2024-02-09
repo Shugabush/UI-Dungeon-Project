@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class ActiveCanvasManager : MonoBehaviour
 {
+    [System.Serializable]
+    private class CanvasSet
+    {
+        // Canvases to set sorting order for (lowest to highest)
+        [SerializeField] Canvas[] orderedCanvases = new Canvas[0];
+
+        public void Sort()
+        {
+            for (int i = 0; i < orderedCanvases.Length; i++)
+            {
+                orderedCanvases[i].overrideSorting = true;
+                orderedCanvases[i].sortingOrder = i;
+            }
+        }
+    }
+
     // Canvases that you want this object to track
     [SerializeField] Canvas[] canvases = new Canvas[0];
+
+    [SerializeField] CanvasSet[] canvasSets = new CanvasSet[0];
 
     static ActiveCanvasManager instance;
 
@@ -13,12 +31,15 @@ public class ActiveCanvasManager : MonoBehaviour
     {
         instance = this;
 
-        foreach (var canvas in canvases)
+        Canvas[] allCanvases = FindObjectsOfType<Canvas>();
+        foreach (var canvas in allCanvases)
         {
-            if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
-            {
-                canvas.worldCamera = Camera.main;
-            }
+            canvas.worldCamera = Camera.main;
+        }
+
+        foreach (var set in canvasSets)
+        {
+            set.Sort();
         }
     }
 

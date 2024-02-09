@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +13,18 @@ public class DungeonMap : MonoBehaviour
         public DungeonRoomCollection()
         {
             rooms = new List<DungeonRoom>();
+        }
+
+        public float GetAverageYPosition()
+        {
+            float totalYPos = 0f;
+
+            foreach (var room in rooms)
+            {
+                totalYPos += room.Rt.localPosition.y;
+            }
+            
+            return totalYPos / rooms.Count;
         }
     }
 
@@ -41,19 +52,16 @@ public class DungeonMap : MonoBehaviour
 
         public void Update()
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, primaryRt.position, Camera.main, out Vector2 point1);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, secondaryRt.position, Camera.main, out Vector2 point2);
+            Vector3 targetPoint1 = from.transform.position;
+            Vector3 targetPoint2 = to.transform.position;
 
-            Vector3 targetPoint1 = parent.TransformPoint(point1);
-            Vector3 targetPoint2 = parent.TransformPoint(point2);
-
-            targetPoint1.z = -1;
-            targetPoint2.z = -1;
+            targetPoint1.z -= 1;
+            targetPoint2.z -= 1;
 
             Vector3 direction = (to.transform.position - from.transform.position).normalized;
 
-            line.SetPosition(0, from.transform.position + (direction * LineOffset));
-            line.SetPosition(1, to.transform.position - (direction * LineOffset));
+            line.SetPosition(0, targetPoint1 + (direction * LineOffset));
+            line.SetPosition(1, targetPoint2 - (direction * LineOffset));
 
             if (!from.Completed || !to.Unlocked)
             {
@@ -72,12 +80,15 @@ public class DungeonMap : MonoBehaviour
     [SerializeField] DungeonRoom[] rooms = new DungeonRoom[0];
     [SerializeField] DungeonDifficulty[] difficulties = new DungeonDifficulty[0];
 
+    [SerializeField] Image difficultyLinePrefab;
+    [SerializeField] Transform difficultyLineParent;
+
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> roomLines;
     [SerializeField] Material lineMat;
 
     [SerializeField] Canvas screen;
-    [SerializeField] Canvas[] childrenScreens = new Canvas[0]; 
+    [SerializeField] Canvas[] childrenScreens = new Canvas[0];
     [SerializeField] Button retreatButton;
 
     [SerializeField] float lineWidth = 5f;
@@ -103,7 +114,7 @@ public class DungeonMap : MonoBehaviour
     }
 
     // Each collection contains dungeons that are of a certain difficulty level (determined by the index)
-    [SerializeField] DungeonRoomCollection[] dungeonRoomCollections = new DungeonRoomCollection[0];
+    [SerializeField] DungeonRoomCollection[] roomCollections = new DungeonRoomCollection[0];
 
     void Awake()
     {
@@ -129,7 +140,7 @@ public class DungeonMap : MonoBehaviour
                         newLine.startWidth = lineWidth;
                         newLine.endWidth = lineWidth;
                         newLine.material = new Material(lineMat);
-                        newLine.transform.parent = transform;
+                        newLine.transform.SetParent(transform);
                         newLine.transform.localPosition = Vector3.zero;
                         newLine.positionCount = 2;
 
@@ -139,6 +150,16 @@ public class DungeonMap : MonoBehaviour
                     }
                 }
             }
+        }
+
+        foreach (var roomCollection in roomCollections)
+        {
+            Image difficultyLine = Instantiate(difficultyLinePrefab, difficultyLineParent);
+
+            Vector3 linePos = difficultyLine.rectTransform.localPosition;
+            linePos.y = roomCollection.GetAverageYPosition();
+
+            difficultyLine.rectTransform.localPosition = linePos;
         }
     }
 
@@ -206,17 +227,17 @@ public class DungeonMap : MonoBehaviour
     [ContextMenu("Get Dungeon Collections")]
     void GetDungeonCollections()
     {
-        dungeonRoomCollections = new DungeonRoomCollection[difficulties.Length];
+        roomCollections = new DungeonRoomCollection[difficulties.Length];
 
         // Get each room's difficulty and add it to the corresponding index in dungeon room collections
         foreach (var room in rooms)
         {
-            DungeonRoomCollection targetCollection = dungeonRoomCollections[room.DifficultyIndex];
+            DungeonRoomCollection targetCollection = roomCollections[room.DifficultyIndex];
 
             if (targetCollection == null)
             {
                 targetCollection = new DungeonRoomCollection();
-                dungeonRoomCollections[room.DifficultyIndex] = targetCollection;
+                roomCollections[room.DifficultyIndex] = targetCollection;
             }
 
             targetCollection.rooms.Add(room);

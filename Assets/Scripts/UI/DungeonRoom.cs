@@ -8,6 +8,9 @@ public class DungeonRoom : MonoBehaviour
     [SerializeField] int difficultyIndex = 0;
     [SerializeField] Button button;
 
+    [field: SerializeField]
+    public RectTransform Rt { get; private set; }
+
     static int currentDifficultyIndex = 0;
 
     public int DifficultyIndex => difficultyIndex;
