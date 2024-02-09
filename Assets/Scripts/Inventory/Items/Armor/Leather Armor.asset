@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   <GoldValue>k__BackingField: 25
   description: 
-  <DropChance>k__BackingField: 1
+  <DropChance>k__BackingField: 0.03
   <SpriteForPlayer>k__BackingField: {fileID: 21300000, guid: 4ffeca82e83aa5e4a87be018745be8c9,
     type: 3}
   <DamageReduction>k__BackingField: 1

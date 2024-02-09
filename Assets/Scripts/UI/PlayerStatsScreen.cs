@@ -27,6 +27,9 @@ public class PlayerStatsScreen : MonoBehaviour
 
     static PlayerStatsScreen instance;
 
+    public static bool HasArmorEquipped => ArmorIcon.sprite != DefaultArmorSprite;
+    public static bool HasWeaponEquipped => WeaponIcon.sprite != DefaultWeaponSprite;
+
     void Awake()
     {
         instance = this;
@@ -78,10 +81,21 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         if (slot == null || slot.Item == null) return;
 
-        InventorySlot targetSlot = GetNextEmptySlot();
-        if (targetSlot != null)
+        if (ArmorSlot.Item != slot.Item && slot.Item.GetType() == typeof(ArmorItem))
         {
-            targetSlot.AddItem(slot.Item);
+            SelectArmor(slot.Item as ArmorItem);
+        }
+        else if (WeaponSlot.Item != slot.Item && slot.Item.GetType() == typeof(WeaponItem))
+        {
+            SelectWeapon(slot.Item as WeaponItem);
+        }
+        else
+        {
+            InventorySlot targetSlot = GetNextEmptySlot();
+            if (targetSlot != null)
+            {
+                targetSlot.AddItem(slot.Item);
+            }
         }
 
         slot.RemoveItem();
@@ -124,5 +138,23 @@ public class PlayerStatsScreen : MonoBehaviour
         }
 
         return (WeaponSlot.Item as WeaponItem).ExtraFightSuccess;
+    }
+
+    public static bool HasItem(ItemObject item)
+    {
+        if (WeaponSlot.Item == item || ArmorSlot.Item == item)
+        {
+            return true;
+        }
+
+        foreach (var slot in instance.slots)
+        {
+            if (slot.Item == item)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

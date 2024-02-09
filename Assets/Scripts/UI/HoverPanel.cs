@@ -133,6 +133,8 @@ public class HoverPanel : MonoBehaviour
             EnableOrDisablePurchaseButton();
             EnableOrDisableSellButton();
             EnableOrDisableUseButton();
+            EnableOrDisableEquipButton();
+            EnableOrDisableUnequipButton();
         }
     }
 
@@ -204,11 +206,17 @@ public class HoverPanel : MonoBehaviour
 
     void Sell(InventorySlot slot)
     {
-        StoreScreen.EnableSlot(slot.Item);
+        ItemObject currentItem = slot.Item;
+
         slot.RemoveItem(true);
         if (slot.Empty)
         {
             DisableUI();
+        }
+
+        if (!PlayerStatsScreen.HasItem(currentItem))
+        {
+            StoreScreen.EnableSlot(currentItem);
         }
     }
 
@@ -260,6 +268,22 @@ public class HoverPanel : MonoBehaviour
         if (useButton != null)
         {
             useButton.gameObject.SetActive(selectedSlot != null && selectedSlot.Item != null && selectedSlot.Item.Useable());
+        }
+    }
+
+    void EnableOrDisableEquipButton()
+    {
+        if (equipButton != null)
+        {
+            equipButton.gameObject.SetActive(StoreScreen.Instance.gameObject.activeInHierarchy);
+        }
+    }
+
+    void EnableOrDisableUnequipButton()
+    {
+        if (unequipButton != null)
+        {
+            unequipButton.gameObject.SetActive(StoreScreen.Instance.gameObject.activeInHierarchy);
         }
     }
 
