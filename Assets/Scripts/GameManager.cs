@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] BarMeter armorStats;
     [SerializeField] BarMeter weaponStats;
 
+    const int lowHealthIndicatorThreshold = 4;
+
     static GameManager instance;
     public static int Gold
     {
@@ -38,6 +40,17 @@ public class GameManager : MonoBehaviour
             instance.health = value;
             instance.healthMeter.UpdateUI(value);
 
+            if (value < lowHealthIndicatorThreshold)
+            {
+                // Display low health indicator
+                LowHealthIndicator.Enable();
+            }
+            else
+            {
+                // Hide low health indicator
+                LowHealthIndicator.Disable();
+            }
+
             if (value <= 0)
             {
                 // TODO: Implement Game Over system
@@ -45,6 +58,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     public static int Armor
     {
         get

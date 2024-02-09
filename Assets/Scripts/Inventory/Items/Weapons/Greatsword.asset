@@ -19,4 +19,4 @@ MonoBehaviour:
   <DropChance>k__BackingField: 0.001
   <SpriteForPlayer>k__BackingField: {fileID: 21300000, guid: e7b9dcc13676bf5469f76ed42ab2198e,
     type: 3}
-  <ExtraFightSuccess>k__BackingField: 10
+  <ExtraFightSuccess>k__BackingField: 30
