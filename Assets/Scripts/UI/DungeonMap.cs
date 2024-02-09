@@ -85,6 +85,7 @@ public class DungeonMap : MonoBehaviour
 
     // Lines that will be connecting each of the rooms to each other
     List<RoomLine> roomLines;
+    List<Image> difficultyLines;
     [SerializeField] Material lineMat;
 
     [SerializeField] Canvas screen;
@@ -128,6 +129,7 @@ public class DungeonMap : MonoBehaviour
         retreatButton.onClick.AddListener(RetreatToSurface);
 
         roomLines = new List<RoomLine>();
+        difficultyLines = new List<Image>();
 
         foreach (var room in rooms)
         {
@@ -165,6 +167,8 @@ public class DungeonMap : MonoBehaviour
             linePos.y = roomCollection.GetAverageYPosition();
 
             difficultyLine.rectTransform.localPosition = linePos;
+
+            difficultyLines.Add(difficultyLine);
         }
     }
 
@@ -187,6 +191,8 @@ public class DungeonMap : MonoBehaviour
                 roomLine.line.enabled = false;
             }
         }
+
+        GameManager.PlayerIcon.position = difficultyLines[DungeonRoom.CurrentDifficultyIndex].rectTransform.position;
     }
 
     static void RetreatToSurface()

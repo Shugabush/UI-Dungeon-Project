@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] BarMeter healthMeter;
     [SerializeField] BarMeter armorStats;
     [SerializeField] BarMeter weaponStats;
+    [SerializeField] RectTransform playerIcon;
 
     const int lowHealthIndicatorThreshold = 4;
 
@@ -53,8 +55,8 @@ public class GameManager : MonoBehaviour
 
             if (value <= 0)
             {
-                // TODO: Implement Game Over system
                 GameOverScreen.Trigger();
+                LowHealthIndicator.Disable();
             }
         }
     }
@@ -105,23 +107,17 @@ public class GameManager : MonoBehaviour
     public static BarMeter HealthMeter => instance.healthMeter;
     public static BarMeter ArmorStats => instance.armorStats;
     public static BarMeter WeaponStats => instance.weaponStats;
+    public static RectTransform PlayerIcon => instance.playerIcon;
 
     void Awake()
     {
         instance = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         healthMeter.MaxValue = maxHealth;
         GoldUI.UpdateText(gold);
         Health = maxHealth;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

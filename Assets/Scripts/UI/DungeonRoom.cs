@@ -21,6 +21,7 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public RectTransform Rt { get; private set; }
 
     static int currentDifficultyIndex = 0;
+    public static int CurrentDifficultyIndex => currentDifficultyIndex;
 
     public bool DifficultyIndexIsValid => DifficultyIndex >= 0 && DifficultyIndex < DungeonMap.DifficultyCount;
     public int DifficultyIndex => difficultyIndex;
