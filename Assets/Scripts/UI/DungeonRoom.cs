@@ -82,8 +82,6 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             difficultyText.text = difficultyIndex.ToString();
         }
-
-        difficultyText.enabled = false;
     }
 
     void Update()
@@ -94,6 +92,8 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             unlocked = completed;
         }
         button.interactable = !completed;
+
+        difficultyText.enabled = button.enabled;
 
         if (unlocked)
         {
@@ -212,14 +212,10 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!button.enabled || !button.interactable) return;
-
-        difficultyText.enabled = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!button.enabled || !button.interactable) return;
-
-        difficultyText.enabled = false;
     }
 }

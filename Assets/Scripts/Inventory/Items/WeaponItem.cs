@@ -18,6 +18,11 @@ public class WeaponItem : ItemObject
 
     public override bool Useable()
     {
-        return false;
+        return PlayerStatsScreen.WeaponSlot.Item != this;
+    }
+
+    public override void OnUsed()
+    {
+        PlayerStatsScreen.SelectWeapon(this);
     }
 }

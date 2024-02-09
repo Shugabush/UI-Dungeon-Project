@@ -78,21 +78,10 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         if (slot == null || slot.Item == null) return;
 
-        if (slot.Item.GetType() == typeof(WeaponItem))
+        InventorySlot targetSlot = GetSlotWithItem(slot.Item);
+        if (targetSlot != null)
         {
-            SelectWeapon((WeaponItem)slot.Item);
-        }
-        else if (slot.Item.GetType() == typeof(ArmorItem))
-        {
-            SelectArmor((ArmorItem)slot.Item);
-        }
-        else
-        {
-            InventorySlot targetSlot = GetSlotWithItem(slot.Item);
-            if (targetSlot != null)
-            {
-                targetSlot.AddItem(slot.Item);
-            }
+            targetSlot.AddItem(slot.Item);
         }
 
         slot.RemoveItem();
@@ -105,21 +94,10 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         if (item == null) return;
 
-        if (item.GetType() == typeof(WeaponItem))
+        InventorySlot targetSlot = GetSlotWithItem(item);
+        if (targetSlot != null)
         {
-            SelectWeapon((WeaponItem)item);
-        }
-        else if (item.GetType() == typeof(ArmorItem))
-        {
-            SelectArmor((ArmorItem)item);
-        }
-        else
-        {
-            InventorySlot targetSlot = GetSlotWithItem(item);
-            if (targetSlot != null)
-            {
-                targetSlot.AddItem(item);
-            }
+            targetSlot.AddItem(item);
         }
     }
 

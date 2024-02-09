@@ -18,6 +18,11 @@ public class ArmorItem : ItemObject
 
     public override bool Useable()
     {
-        return false;
+        return PlayerStatsScreen.ArmorSlot.Item != this;
+    }
+
+    public override void OnUsed()
+    {
+        PlayerStatsScreen.SelectArmor(this);
     }
 }
