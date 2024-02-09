@@ -14,8 +14,6 @@ public class LowHealthIndicator : MonoBehaviour
     [SerializeField] float animationSpeed = 5f;
     [SerializeField] float animationAmount = 0.25f;
 
-    float startingIntensity;
-
     // Time elapsed (while the volume is active)
     float timeElapsed;
 
@@ -26,7 +24,6 @@ public class LowHealthIndicator : MonoBehaviour
         timeElapsed = 0f;
 
         volume.profile.TryGet(out vg);
-        startingIntensity = vg.intensity.value;
     }
 
     void Update()
@@ -35,7 +32,8 @@ public class LowHealthIndicator : MonoBehaviour
         {
             // Animate vignette intensity (back and forth with sine operator)
             timeElapsed += Time.deltaTime;
-            vg.intensity.value = Mathf.Sin(timeElapsed * animationSpeed) * 0.5f * animationAmount + 0.5f;
+            Debug.Log(Mathf.Cos(Mathf.PI / 2f));
+            vg.intensity.value = Mathf.Cos(timeElapsed * animationSpeed) * 0.5f * animationAmount + 0.5f;
         }
     }
 

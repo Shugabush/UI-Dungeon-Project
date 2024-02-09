@@ -73,6 +73,13 @@ public class DungeonRoom : MonoBehaviour
         button.interactable = !completed;
     }
 
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        UnityEditor.Handles.color = Color.black;
+        UnityEditor.Handles.Label(transform.position, (difficultyIndex + 1).ToString());
+    }
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -120,13 +127,12 @@ public class DungeonRoom : MonoBehaviour
             }
         }
 
-#if UNITY_EDITOR
         if (anythingModified)
         {
             UnityEditor.EditorUtility.SetDirty(this);
         }
-#endif
     }
+#endif
 
     void CheckForUnlocked()
     {
