@@ -5,13 +5,13 @@ using UnityEngine;
 public class StoreScreen : MonoBehaviour
 {
     [SerializeField] BaseSlot[] merchandiseSlots = new BaseSlot[0];
-    static BaseSlot[] MerchandiseSlots => instance.merchandiseSlots;
+    static BaseSlot[] MerchandiseSlots => Instance.merchandiseSlots;
 
-    static StoreScreen instance;
+    public static StoreScreen Instance { get; private set; }
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     public static void EnableSlot(ItemObject targetItem)

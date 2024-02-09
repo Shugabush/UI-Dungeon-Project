@@ -78,7 +78,7 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         if (slot == null || slot.Item == null) return;
 
-        InventorySlot targetSlot = GetSlotWithItem(slot.Item);
+        InventorySlot targetSlot = GetNextEmptySlot();
         if (targetSlot != null)
         {
             targetSlot.AddItem(slot.Item);
@@ -94,7 +94,7 @@ public class PlayerStatsScreen : MonoBehaviour
     {
         if (item == null) return;
 
-        InventorySlot targetSlot = GetSlotWithItem(item);
+        InventorySlot targetSlot = GetNextEmptySlot();
         if (targetSlot != null)
         {
             targetSlot.AddItem(item);
@@ -114,18 +114,6 @@ public class PlayerStatsScreen : MonoBehaviour
             }
         }
         return null;
-    }
-
-    public static InventorySlot GetSlotWithItem(ItemObject targetItem)
-    {
-        foreach (var slot in instance.slots)
-        {
-            if (slot.Item == targetItem)
-            {
-                return slot;
-            }
-        }
-        return GetNextEmptySlot();
     }
 
     public static int GetAdditionalFightSuccess()

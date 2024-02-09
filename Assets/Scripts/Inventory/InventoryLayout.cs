@@ -55,7 +55,7 @@ public class InventoryLayout : MonoBehaviour
 
     public void AddItem(ItemObject item)
     {
-        InventorySlot targetSlot = GetSlotWithItem(item);
+        InventorySlot targetSlot = GetNextEmptySlot();
         if (targetSlot != null)
         {
             targetSlot.AddItem(item);
@@ -66,9 +66,9 @@ public class InventoryLayout : MonoBehaviour
     {
         foreach (var slot in slots)
         {
-            if (slot.Item != null)
+            if (!slot.Empty)
             {
-                slot.Count = 0;
+                slot.RemoveItem();
             }
         }
     }

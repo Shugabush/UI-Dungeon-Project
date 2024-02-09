@@ -131,6 +131,8 @@ public class HoverPanel : MonoBehaviour
         if (folder.activeInHierarchy && selectedItem != null)
         {
             EnableOrDisablePurchaseButton();
+            EnableOrDisableSellButton();
+            EnableOrDisableUseButton();
         }
     }
 
@@ -145,7 +147,6 @@ public class HoverPanel : MonoBehaviour
                 {
                     sellButtonText.text = $"Sell ({selectedSlot.Item.GoldValue} Gold)";
                 }
-                EnableOrDisableUseButton();
             }
         }
         folder.SetActive(true);
@@ -218,7 +219,6 @@ public class HoverPanel : MonoBehaviour
             slot.Item.OnUsed();
         }
         slot.RemoveItem();
-        EnableOrDisableUseButton();
 
         if (slot.Item == null)
         {
@@ -244,6 +244,14 @@ public class HoverPanel : MonoBehaviour
             bool interactable = GameManager.Gold >= selectedItem.GoldValue;
             purchaseButton.interactable = interactable;
             purchaseButtonCanvasGroup.blocksRaycasts = interactable;
+        }
+    }
+
+    void EnableOrDisableSellButton()
+    {
+        if (sellButton != null)
+        {
+            sellButton.gameObject.SetActive(StoreScreen.Instance.gameObject.activeInHierarchy);
         }
     }
 

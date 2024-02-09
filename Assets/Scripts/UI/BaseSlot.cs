@@ -37,6 +37,8 @@ public class BaseSlot : MonoBehaviour
         }
     }
 
+    public bool Empty => Item == null;
+
     protected virtual void Awake()
     {
         if (item != null)

@@ -5,44 +5,9 @@ using UnityEngine;
 
 public class InventorySlot : BaseSlot
 {
-    [SerializeField] TMP_Text countText;
-
-    int count = 0;
-
-    public int Count
-    {
-        get
-        {
-            return count;
-        }
-        set
-        {
-            count = value;
-            if (value <= 0)
-            {
-                Item = null;
-                countText.text = string.Empty;
-            }
-            else
-            {
-                countText.text = count.ToString();
-            }
-        }
-    }
-
-    public bool Empty => Count <= 0;
-
     public void AddItem(ItemObject newItem)
     {
-        if (Empty)
-        {
-            Item = newItem;
-            Count++;
-        }
-        else if (Item == newItem)
-        {
-            Count++;
-        }
+        Item = newItem;
     }
 
     public void RemoveItem(bool sell = false)
@@ -56,17 +21,10 @@ public class InventorySlot : BaseSlot
             PlayerStatsScreen.RemoveArmor();
         }
 
-        if (!Empty)
+        if (sell)
         {
-            if (sell)
-            {
-                GameManager.Gold += item.GoldValue;
-            }
-            Count--;
+            GameManager.Gold += item.GoldValue;
         }
-        else
-        {
-            Count = 0;
-        }
+        Item = null;
     }
 }

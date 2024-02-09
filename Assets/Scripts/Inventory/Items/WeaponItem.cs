@@ -18,7 +18,7 @@ public class WeaponItem : ItemObject
 
     public override bool Useable()
     {
-        return PlayerStatsScreen.WeaponSlot.Item != this;
+        return StorageScreen.Instance.gameObject.activeInHierarchy && PlayerStatsScreen.WeaponSlot.Item != this;
     }
 
     public override void OnUsed()

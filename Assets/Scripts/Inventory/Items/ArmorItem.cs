@@ -18,7 +18,7 @@ public class ArmorItem : ItemObject
 
     public override bool Useable()
     {
-        return PlayerStatsScreen.ArmorSlot.Item != this;
+        return StorageScreen.Instance.gameObject.activeInHierarchy && PlayerStatsScreen.ArmorSlot.Item != this;
     }
 
     public override void OnUsed()
