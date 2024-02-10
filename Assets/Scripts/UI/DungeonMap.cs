@@ -216,6 +216,14 @@ public class DungeonMap : MonoBehaviour
     static void RetreatToSurface()
     {
         Screen.enabled = false;
+        foreach (var room in instance.rooms)
+        {
+            if (room.DifficultyIndex > 0)
+            {
+                room.Completed = room.CompletedDefault;
+                room.Unlocked = room.UnlockedDefault;
+            }
+        }
     }
 
     public static DungeonDifficulty GetDifficulty(DungeonRoom room)

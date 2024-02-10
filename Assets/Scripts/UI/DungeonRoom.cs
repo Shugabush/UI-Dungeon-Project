@@ -39,11 +39,18 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool unlocked = false;
     [SerializeField] bool completed = false;
 
+    public bool UnlockedDefault { get; private set; }
+    public bool CompletedDefault { get; private set; }
+
     public bool Unlocked
     {
         get
         {
             return unlocked;
+        }
+        set
+        {
+            unlocked = value;
         }
     }
 
@@ -55,11 +62,19 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
         set
         {
-            completed = value;
-            if (value)
+            if (completed != value)
             {
-                currentDifficultyIndex++;
+                if (value)
+                {
+                    currentDifficultyIndex++;
+                }
+                else
+                {
+                    currentDifficultyIndex--;
+                }
             }
+
+            completed = value;
             foreach (var room in nextDungeonRooms)
             {
                 room.CheckForUnlocked();
@@ -69,6 +84,9 @@ public class DungeonRoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void Awake()
     {
+        UnlockedDefault = unlocked;
+        CompletedDefault = completed;
+
         currentDifficultyIndex = 1;
 
         // Dungeon complete requirement cannot be more than the number of dungeon dependencies
