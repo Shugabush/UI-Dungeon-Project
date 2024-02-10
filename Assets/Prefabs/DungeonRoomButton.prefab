@@ -140,9 +140,10 @@ MonoBehaviour:
   difficultyIndex: 0
   button: {fileID: 298620047485513590}
   difficultyText: {fileID: 8509251751448326272}
-  blankButtonSprite: {fileID: 21300000, guid: 14d58a1f1a490bc49b28a252f2e92b98, type: 3}
+  blankButtonSprite: {fileID: 21300000, guid: 79b981b492346d3419c0ccf194dafb3d, type: 3}
   mainButtonSprite: {fileID: 21300000, guid: 2d2258ec7b7e2d343b82fd5d44de725f, type: 3}
   <Rt>k__BackingField: {fileID: 3854444308953482153}
+  <IsBossRoom>k__BackingField: 0
   nextDungeonRooms: []
   dungeonRoomDependencies: []
   minDungeonCompleteRequirement: 1

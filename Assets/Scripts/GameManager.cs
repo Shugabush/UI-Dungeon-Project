@@ -108,6 +108,11 @@ public class GameManager : MonoBehaviour
     public static BarMeter WeaponStats => instance.weaponStats;
     public static RectTransform PlayerIcon => instance.playerIcon;
 
+    public static void ResetHealth()
+    {
+        Health = instance.maxHealth;
+    }
+
     void Awake()
     {
         instance = this;

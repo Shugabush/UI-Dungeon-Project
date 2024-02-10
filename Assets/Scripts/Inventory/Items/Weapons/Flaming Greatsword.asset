@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: 39218fef318855b49878cbeed3a512e6,
     type: 3}
-  <GoldValue>k__BackingField: 700
+  <GoldValue>k__BackingField: 600
   description: 
   <DropChance>k__BackingField: 0.0001
   <SpriteForPlayer>k__BackingField: {fileID: 21300000, guid: 7f62e2a851b2338499c4df4814817e88,
